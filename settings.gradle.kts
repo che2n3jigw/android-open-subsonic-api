@@ -28,4 +28,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Subsonic API"
 include(":app")
- 
+include(":lib_subsonic_api")
