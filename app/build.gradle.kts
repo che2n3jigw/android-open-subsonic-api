@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -42,5 +43,6 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.appcompat)
+    implementation(project(":lib_subsonic_api"))
 }
