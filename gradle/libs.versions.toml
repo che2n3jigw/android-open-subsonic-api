@@ -1,11 +1,24 @@
 [versions]
 agp = "8.13.2"
 kotlin = "2.3.0"
+# kotlin 序列化依赖和插件版本
+kotlinxSerializationJson = "1.9.0"
+# retrofit 依赖版本
+retrofit = "3.0.0"
+# retrofit 封装库(根据实际版本)
+androidNet = "1.0.0"
+appcompat = "1.7.1"
 
 [libraries]
+converter-kotlinx-serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+android-net = { module = "com.github.che2n3jigw:android-net", version.ref = "androidNet" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 

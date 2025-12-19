@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -39,5 +40,11 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.android.net)
+    // retrofit
+    implementation(libs.retrofit)
+    // 实体类转换器
+    implementation(libs.converter.kotlinx.serialization)
+    // kotlin序列化
+    implementation(libs.kotlinx.serialization.json)
 }
