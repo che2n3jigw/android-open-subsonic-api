@@ -16,12 +16,9 @@
  *
  */
 
-// 作者: che2n3jigw
-// 邮箱: che2n3jigw@163.com
-// 博客: che2n3jigw.github.io
-// 创建时间： 12/18/25
-package com.che2n3jigw.android.libs.subsonicapi
+package com.che2n3jigw.android.libs.subsonicapi.interceptor
 
+import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -29,8 +26,7 @@ import okhttp3.Response
  * 认证拦截器
  */
 class AuthenticationInterceptor(
-    private val username: String,
-    private val password: String
+    private val auth: AutoInfo
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -41,15 +37,15 @@ class AuthenticationInterceptor(
         // 原始地址追加参数
         val url = originalHttpUrl.newBuilder()
             // 用户名
-            .addQueryParameter("u", username)
+            .addQueryParameter("u", auth.username)
             // 密码
-            .addQueryParameter("p", password)
+            .addQueryParameter("p", auth.password)
             // 协议版本
-            .addQueryParameter("v", "1.16.1")
+            .addQueryParameter("v", auth.version)
             // 客户端标识
-            .addQueryParameter("c", "android-client")
+            .addQueryParameter("c", auth.client)
             // 响应数据格式 json
-            .addQueryParameter("f", "json")
+            .addQueryParameter("f", auth.format)
             .build()
 
         val request = originalRequest.newBuilder()
