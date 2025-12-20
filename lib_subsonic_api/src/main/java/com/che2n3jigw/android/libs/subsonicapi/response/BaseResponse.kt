@@ -20,7 +20,7 @@
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
 // 创建时间： 12/18/25
-package com.che2n3jigw.android.libs.subsonicapi.bean.response
+package com.che2n3jigw.android.libs.subsonicapi.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

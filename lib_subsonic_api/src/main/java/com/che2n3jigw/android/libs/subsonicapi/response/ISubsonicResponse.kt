@@ -20,12 +20,12 @@
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
 // 创建时间： 12/19/25
-package com.che2n3jigw.android.libs.subsonicapi.bean.response
-
-import kotlinx.serialization.Serializable
+package com.che2n3jigw.android.libs.subsonicapi.response
 
 /**
- * ping接口返回数据类型
+ * Subsonic接口基础数据类型
  */
-@Serializable
-class PingResponse(override val status: String?, override val version: String?) : ISubsonicResponse
+interface ISubsonicResponse {
+    val status: String?
+    val version: String?
+}
