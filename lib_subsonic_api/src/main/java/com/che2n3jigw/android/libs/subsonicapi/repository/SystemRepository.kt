@@ -21,31 +21,20 @@ package com.che2n3jigw.android.libs.subsonicapi.repository
 import com.che2n3jigw.android.libs.net.RequestClient
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
-import com.che2n3jigw.android.libs.subsonicapi.AuthenticationInterceptor
-import com.che2n3jigw.android.libs.subsonicapi.bean.response.BaseResponse
-import com.che2n3jigw.android.libs.subsonicapi.bean.response.LicenseResponse
-import com.che2n3jigw.android.libs.subsonicapi.bean.response.PingResponse
+import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.system.LicenseResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.system.PingResponse
 import retrofit2.http.GET
 
 /**
  * Subsonic System API 远程库
- * @param baseUrl           域名
- * @param enableLogging     是否启用日志
- * @param username          用户名
- * @param password          密码
  */
 class SystemRepository(
     private val baseUrl: String,
-    private val username: String,
-    private val password: String,
+    authInfo: AutoInfo,
     private val enableLogging: Boolean = true
-) {
-
-    companion object {
-        private const val STATUS_OK = "ok"
-    }
-
-    private val authInterceptor = AuthenticationInterceptor(username, password)
+) : BaseRepository(authInfo) {
 
     private val service = RequestClient.createService<Service>(
         baseUrl = baseUrl,
