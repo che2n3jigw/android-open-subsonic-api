@@ -19,45 +19,25 @@
 // 作者: che2n3jigw
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
-// 创建时间： 12/20/25
+// 创建时间： 12/21/25
 package com.che2n3jigw.android.libs.subsonicapi.response.browsing
 
 import com.che2n3jigw.android.libs.subsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class IndexesResponse(
+data class MusicDirectoryResponse(
     override val status: String?,
     override val version: String?,
-    val indexes: Indexes? = null
+    val directory: Directory? = null
 ) : ISubsonicResponse {
-
     @Serializable
-    data class Indexes(
-        val lastModified: Long? = null,
-        val ignoredArticles: String? = null,
-        val shortcut: List<Shortcut?>? = null,
-        val index: List<Index?>? = null,
-        val child: List<Child?>? = null
-    )
-
-    @Serializable
-    data class Shortcut(
+    data class Directory(
         val id: String? = null,
-        val name: String? = null
-    )
-
-    @Serializable
-    data class Index(
+        val parent: String? = null,
         val name: String? = null,
-        val artist: List<Artist?>? = null
-    )
-
-    @Serializable
-    data class Artist(
-        val id: String? = null,
-        val name: String? = null,
-        val starred: String? = null
+        val starred: String? = null,
+        val child: List<Child>? = null
     )
 }
 

@@ -29,6 +29,7 @@ import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse.Indexes
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicDirectoryResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicFoldersResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -80,15 +81,36 @@ class BrowsingRepository(
         }
     }
 
-    interface Service {
-
-        @GET("/rest/getMusicFolders")
-        suspend fun getMusicFolders(): BaseResponse<MusicFoldersResponse>
-
-        @GET("/rest/getIndexes")
-        suspend fun getIndexes(
-            @Query("musicFolderId") musicFolderId: Int? = null,
-            @Query("ifModifiedSince") ifModifiedSince: Long? = null
-        ): BaseResponse<IndexesResponse>
+    /**
+     * 用于获取某个艺术家的专辑列表，或某个专辑的歌曲列表。
+     * @param id 音乐目录的ID(艺术家id/专辑id),通过getIndexes/getMusicDirectory获取
+     * @return 音乐目录中所有文件的列表
+     */
+    suspend fun getMusicDirectory(id: String): MusicDirectoryResponse.Directory? {
+        val result = RequestUtils.safeApiCall {
+            service.getMusicDirectory(id)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.directory
+            // 请求失败
+            else -> null
+        }
     }
+}
+
+interface Service {
+
+    @GET("/rest/getMusicFolders")
+    suspend fun getMusicFolders(): BaseResponse<MusicFoldersResponse>
+
+    @GET("/rest/getIndexes")
+    suspend fun getIndexes(
+        @Query("musicFolderId") musicFolderId: Int? = null,
+        @Query("ifModifiedSince") ifModifiedSince: Long? = null
+    ): BaseResponse<IndexesResponse>
+
+    @GET("/rest/getMusicDirectory")
+    suspend fun getMusicDirectory(@Query("id") id: String): BaseResponse<MusicDirectoryResponse>
+
 }
