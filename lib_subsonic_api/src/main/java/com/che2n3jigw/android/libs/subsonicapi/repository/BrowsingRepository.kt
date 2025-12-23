@@ -27,6 +27,7 @@ import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.GenresResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse.Indexes
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicDirectoryResponse
@@ -97,6 +98,20 @@ class BrowsingRepository(
             else -> null
         }
     }
+
+    suspend fun getGenres(): List<GenresResponse.Genre> {
+        val result = RequestUtils.safeApiCall {
+            service.getGenres()
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.genres?.genre?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
 }
 
 interface Service {
@@ -113,4 +128,6 @@ interface Service {
     @GET("/rest/getMusicDirectory")
     suspend fun getMusicDirectory(@Query("id") id: String): BaseResponse<MusicDirectoryResponse>
 
+    @GET("/rest/getGenres")
+    suspend fun getGenres(): BaseResponse<GenresResponse>
 }
