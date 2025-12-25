@@ -27,6 +27,7 @@ import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.GenresResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
@@ -135,6 +136,24 @@ class BrowsingRepository(
             else -> null
         }
     }
+
+    /**
+     * 获取专辑
+     * @param id 专辑的ID
+     */
+    suspend fun getAlbum(id: String): AlbumResponse.Album? {
+        val result = RequestUtils.safeApiCall {
+            service.getAlbum(id)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.album
+            }
+            // 请求失败
+            else -> null
+        }
+    }
 }
 
 interface Service {
@@ -156,4 +175,7 @@ interface Service {
 
     @GET("/rest/getArtists")
     suspend fun getArtists(@Query("musicFolderId") musicFolderId: Long? = null): BaseResponse<ArtistsResponse>
+
+    @GET("/rest/getAlbum")
+    suspend fun getAlbum(@Query("id") id: String): BaseResponse<AlbumResponse>
 }
