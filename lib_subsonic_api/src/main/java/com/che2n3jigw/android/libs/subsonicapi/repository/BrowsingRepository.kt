@@ -27,6 +27,7 @@ import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.GenresResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse.Indexes
@@ -99,6 +100,9 @@ class BrowsingRepository(
         }
     }
 
+    /**
+     * 获取流派
+     */
     suspend fun getGenres(): List<GenresResponse.Genre> {
         val result = RequestUtils.safeApiCall {
             service.getGenres()
@@ -110,6 +114,25 @@ class BrowsingRepository(
             }
             // 请求失败
             else -> emptyList()
+        }
+    }
+
+    /**
+     * 获取艺术家
+     * 与 getIndexes 类似，但它是根据 ID3 标签对音乐进行组织。
+     * @param musicFolderId 如果指定，则仅返回音乐文件夹中具有给定 ID 的艺术家。
+     */
+    suspend fun getArtists(musicFolderId: Long? = null): ArtistsResponse.Artists? {
+        val result = RequestUtils.safeApiCall {
+            service.getArtists(musicFolderId)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.artists
+            }
+            // 请求失败
+            else -> null
         }
     }
 }
@@ -130,4 +153,7 @@ interface Service {
 
     @GET("/rest/getGenres")
     suspend fun getGenres(): BaseResponse<GenresResponse>
+
+    @GET("/rest/getArtists")
+    suspend fun getArtists(@Query("musicFolderId") musicFolderId: Long? = null): BaseResponse<ArtistsResponse>
 }
