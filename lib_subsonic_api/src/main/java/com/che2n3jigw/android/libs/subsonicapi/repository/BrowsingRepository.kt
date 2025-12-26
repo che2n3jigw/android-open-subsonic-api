@@ -37,6 +37,8 @@ import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicDirectoryR
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicFoldersResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Song
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SongResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideoInfoResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideoInfoResponse.VideoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideosResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -194,6 +196,23 @@ class BrowsingRepository(
             else -> emptyList()
         }
     }
+
+    /**
+     * 获取视频
+     * @param id 视频的ID
+     */
+    @UnverifiedApi
+    suspend fun getVideoInfo(id: String): VideoInfo? {
+        val result = RequestUtils.safeApiCall {
+            service.getVideoInfo(id)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.videoInfo
+            // 请求失败
+            else -> null
+        }
+    }
 }
 
 interface Service {
@@ -224,4 +243,8 @@ interface Service {
 
     @GET("/rest/getVideos")
     suspend fun getVideos(): BaseResponse<VideosResponse>
+
+    @GET("/rest/getVideoInfo")
+    suspend fun getVideoInfo(@Query("id") id: String): BaseResponse<VideoInfoResponse>
+
 }
