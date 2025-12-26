@@ -25,6 +25,7 @@ package com.che2n3jigw.android.libs.subsonicapi.repository
 import com.che2n3jigw.android.libs.net.RequestClient
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
+import com.che2n3jigw.android.libs.subsonicapi.UnverifiedApi
 import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumResponse
@@ -36,6 +37,7 @@ import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicDirectoryR
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicFoldersResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Song
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SongResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideosResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -174,6 +176,24 @@ class BrowsingRepository(
             else -> null
         }
     }
+
+    /**
+     * 获取所有视频
+     */
+    @UnverifiedApi
+    suspend fun getVideos(): List<VideosResponse.Video> {
+        val result = RequestUtils.safeApiCall {
+            service.getVideos()
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.videos?.video?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
 }
 
 interface Service {
@@ -201,4 +221,7 @@ interface Service {
 
     @GET("/rest/getSong")
     suspend fun getSong(@Query("id") id: String): BaseResponse<SongResponse>
+
+    @GET("/rest/getVideos")
+    suspend fun getVideos(): BaseResponse<VideosResponse>
 }
