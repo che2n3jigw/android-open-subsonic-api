@@ -34,6 +34,8 @@ import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse.Indexes
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicDirectoryResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicFoldersResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Song
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SongResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -154,6 +156,24 @@ class BrowsingRepository(
             else -> null
         }
     }
+
+    /**
+     * 获取歌曲
+     * @param id 歌曲的ID
+     */
+    suspend fun getSong(id: String): Song? {
+        val result = RequestUtils.safeApiCall {
+            service.getSong(id)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.song
+            }
+            // 请求失败
+            else -> null
+        }
+    }
 }
 
 interface Service {
@@ -178,4 +198,7 @@ interface Service {
 
     @GET("/rest/getAlbum")
     suspend fun getAlbum(@Query("id") id: String): BaseResponse<AlbumResponse>
+
+    @GET("/rest/getSong")
+    suspend fun getSong(@Query("id") id: String): BaseResponse<SongResponse>
 }
