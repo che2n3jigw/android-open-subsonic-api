@@ -29,6 +29,8 @@ import com.che2n3jigw.android.libs.subsonicapi.UnverifiedApi
 import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfoResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfoResponse.ArtistInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.GenresResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
@@ -213,6 +215,28 @@ class BrowsingRepository(
             else -> null
         }
     }
+
+    /**
+     * 获取艺术家
+     * @param id                艺术家的ID
+     * @param count             相似艺术家数量上限
+     * @param includeNotPresent 是否归还媒体库中不存在的艺术家
+     */
+    suspend fun getArtistInfo(
+        id: String,
+        count: Int = 20,
+        includeNotPresent: Boolean = false
+    ): ArtistInfo? {
+        val result = RequestUtils.safeApiCall {
+            service.getArtistInfo(id, count, includeNotPresent)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.artistInfo
+            // 请求失败
+            else -> null
+        }
+    }
 }
 
 interface Service {
@@ -246,5 +270,12 @@ interface Service {
 
     @GET("/rest/getVideoInfo")
     suspend fun getVideoInfo(@Query("id") id: String): BaseResponse<VideoInfoResponse>
+
+    @GET("/rest/getArtistInfo")
+    suspend fun getArtistInfo(
+        @Query("id") id: String,
+        @Query("count") count: Int,
+        @Query("includeNotPresent") includeNotPresent: Boolean
+    ): BaseResponse<ArtistInfoResponse>
 
 }
