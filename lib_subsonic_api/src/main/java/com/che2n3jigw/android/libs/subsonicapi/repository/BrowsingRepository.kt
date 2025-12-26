@@ -28,6 +28,7 @@ import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.subsonicapi.UnverifiedApi
 import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumInfoResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfo2Response
@@ -260,6 +261,38 @@ class BrowsingRepository(
             else -> null
         }
     }
+
+    /**
+     * 获取专辑信息
+     * @param id 专辑的ID/歌曲ID
+     */
+    suspend fun getAlbumInfo(id: String): AlbumInfoResponse.AlbumInfo? {
+        val result = RequestUtils.safeApiCall {
+            service.getAlbumInfo(id)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.albumInfo
+            // 请求失败
+            else -> null
+        }
+    }
+
+    /**
+     * 获取专辑信息
+     * @param id 专辑的ID
+     */
+    suspend fun getAlbumInfo2(id: String): AlbumInfoResponse.AlbumInfo? {
+        val result = RequestUtils.safeApiCall {
+            service.getAlbumInfo2(id)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.albumInfo
+            // 请求失败
+            else -> null
+        }
+    }
 }
 
 interface Service {
@@ -307,4 +340,10 @@ interface Service {
         @Query("count") count: Int,
         @Query("includeNotPresent") includeNotPresent: Boolean
     ): BaseResponse<ArtistInfo2Response>
+
+    @GET("/rest/getAlbumInfo")
+    suspend fun getAlbumInfo(@Query("id") id: String): BaseResponse<AlbumInfoResponse>
+
+    @GET("/rest/getAlbumInfo2")
+    suspend fun getAlbumInfo2(@Query("id") id: String): BaseResponse<AlbumInfoResponse>
 }
