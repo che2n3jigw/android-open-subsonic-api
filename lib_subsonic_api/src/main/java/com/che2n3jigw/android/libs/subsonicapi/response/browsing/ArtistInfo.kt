@@ -22,12 +22,15 @@
 // 创建时间： 12/26/25
 package com.che2n3jigw.android.libs.subsonicapi.response.browsing
 
-import com.che2n3jigw.android.libs.subsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ArtistInfoResponse(
-    override val status: String?,
-    override val version: String?,
-    val artistInfo: ArtistInfo? = null
-) : ISubsonicResponse
+data class ArtistInfo(
+    val biography: String? = null,
+    val musicBrainzId: String? = null,
+    val lastFmUrl: String? = null,
+    val smallImageUrl: String? = null,
+    val mediumImageUrl: String? = null,
+    val largeImageUrl: String? = null,
+    val similarArtist: List<SimilarArtist>? = null
+)

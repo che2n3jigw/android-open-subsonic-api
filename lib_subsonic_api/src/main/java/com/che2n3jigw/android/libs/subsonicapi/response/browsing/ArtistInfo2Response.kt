@@ -26,8 +26,8 @@ import com.che2n3jigw.android.libs.subsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ArtistInfoResponse(
+data class ArtistInfo2Response(
     override val status: String?,
     override val version: String?,
-    val artistInfo: ArtistInfo? = null
+    val artistInfo2: ArtistInfo? = null
 ) : ISubsonicResponse

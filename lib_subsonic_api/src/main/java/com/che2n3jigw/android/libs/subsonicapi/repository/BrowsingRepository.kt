@@ -29,8 +29,9 @@ import com.che2n3jigw.android.libs.subsonicapi.UnverifiedApi
 import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfo
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfo2Response
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfoResponse
-import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfoResponse.ArtistInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.GenresResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
@@ -217,7 +218,7 @@ class BrowsingRepository(
     }
 
     /**
-     * 获取艺术家
+     * 获取艺术家信息
      * @param id                艺术家的ID
      * @param count             相似艺术家数量上限
      * @param includeNotPresent 是否归还媒体库中不存在的艺术家
@@ -233,6 +234,28 @@ class BrowsingRepository(
         return when (result) {
             // 请求成功
             is RequestResult.Success -> result.data.response?.artistInfo
+            // 请求失败
+            else -> null
+        }
+    }
+
+    /**
+     * 获取艺术家信息，与getArtistInfo相似，但它是根据 ID3 标签对音乐进行分类。
+     * @param id                艺术家的ID
+     * @param count             相似艺术家数量上限
+     * @param includeNotPresent 是否归还媒体库中不存在的艺术家
+     */
+    suspend fun getArtistInfo2(
+        id: String,
+        count: Int = 20,
+        includeNotPresent: Boolean = false
+    ): ArtistInfo? {
+        val result = RequestUtils.safeApiCall {
+            service.getArtistInfo2(id, count, includeNotPresent)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.artistInfo2
             // 请求失败
             else -> null
         }
@@ -278,4 +301,10 @@ interface Service {
         @Query("includeNotPresent") includeNotPresent: Boolean
     ): BaseResponse<ArtistInfoResponse>
 
+    @GET("/rest/getArtistInfo2")
+    suspend fun getArtistInfo2(
+        @Query("id") id: String,
+        @Query("count") count: Int,
+        @Query("includeNotPresent") includeNotPresent: Boolean
+    ): BaseResponse<ArtistInfo2Response>
 }
