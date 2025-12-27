@@ -39,6 +39,8 @@ import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse.Indexes
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicDirectoryResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicFoldersResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongs2Response
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Song
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SongResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideoInfoResponse
@@ -293,6 +295,44 @@ class BrowsingRepository(
             else -> null
         }
     }
+
+    /**
+     * 获取相似歌曲
+     * @param id                歌曲的ID
+     * @param count             相似歌曲数量上限
+     */
+    suspend fun getSimilarSongs(id: String, count: Int = 50): List<Song> {
+        val result = RequestUtils.safeApiCall {
+            service.getSimilarSongs(id, count)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.similarSongs?.song?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
+
+    /**
+     * 获取相似歌曲，但它是根据 ID3 标签对音乐进行分类。
+     * @param id                歌曲的ID
+     * @param count             相似歌曲数量上限
+     */
+    suspend fun getSimilarSongs2(id: String, count: Int = 50): List<Song> {
+        val result = RequestUtils.safeApiCall {
+            service.getSimilarSongs2(id, count)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.similarSongs2?.song?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
 }
 
 interface Service {
@@ -346,4 +386,16 @@ interface Service {
 
     @GET("/rest/getAlbumInfo2")
     suspend fun getAlbumInfo2(@Query("id") id: String): BaseResponse<AlbumInfoResponse>
+
+    @GET("/rest/getSimilarSongs")
+    suspend fun getSimilarSongs(
+        @Query("id") id: String,
+        @Query("count") count: Int
+    ): BaseResponse<SimilarSongsResponse>
+
+    @GET("/rest/getSimilarSongs2")
+    suspend fun getSimilarSongs2(
+        @Query("id") id: String,
+        @Query("count") count: Int
+    ): BaseResponse<SimilarSongs2Response>
 }
