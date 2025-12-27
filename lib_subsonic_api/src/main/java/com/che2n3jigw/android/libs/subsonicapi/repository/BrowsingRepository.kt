@@ -51,6 +51,9 @@ import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongsRes
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Song
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SongResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SongsByGenreResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Starred
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Starred2Response
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.StarredResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.TopSongsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideoInfoResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideoInfoResponse.VideoInfo
@@ -381,7 +384,7 @@ class BrowsingRepository(
         toYear: Int? = null,
         genre: String? = null,
         musicFolderId: Long? = null
-    ): List<AlbumListResponse.Album> {
+    ): List<Album> {
         val result = RequestUtils.safeApiCall {
             service.getAlbumList(type.value, size, offset, fromYear, toYear, genre, musicFolderId)
         }
@@ -501,6 +504,38 @@ class BrowsingRepository(
             else -> emptyList()
         }
     }
+
+    /**
+     * @param musicFolderId 音乐文件夹的ID
+     * @return 返回星号歌曲、专辑和歌手。
+     */
+    suspend fun getStarred(musicFolderId: Long? = null): Starred? {
+        val result = RequestUtils.safeApiCall {
+            service.getStarred(musicFolderId)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.starred
+            // 请求失败
+            else -> null
+        }
+    }
+
+    /**
+     * @param musicFolderId 音乐文件夹的ID
+     * @return 返回星号歌曲、专辑和歌手。但它会根据 ID3 标签对音乐进行分类。
+     */
+    suspend fun getStarred2(musicFolderId: Long? = null): Starred? {
+        val result = RequestUtils.safeApiCall {
+            service.getStarred2(musicFolderId)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.starred2
+            // 请求失败
+            else -> null
+        }
+    }
 }
 
 interface Service {
@@ -615,4 +650,10 @@ interface Service {
 
     @GET("/rest/getNowPlaying")
     suspend fun getNowPlaying(): BaseResponse<NowPlayingResponse>
+
+    @GET("/rest/getStarred")
+    suspend fun getStarred(@Query("musicFolderId") musicFolderId: Long? = null): BaseResponse<StarredResponse>
+
+    @GET("/rest/getStarred2")
+    suspend fun getStarred2(@Query("musicFolderId") musicFolderId: Long? = null): BaseResponse<Starred2Response>
 }

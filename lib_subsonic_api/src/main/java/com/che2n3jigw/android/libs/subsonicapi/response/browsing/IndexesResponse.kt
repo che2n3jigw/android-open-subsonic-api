@@ -52,12 +52,5 @@ data class IndexesResponse(
         val name: String? = null,
         val artist: List<Artist?>? = null
     )
-
-    @Serializable
-    data class Artist(
-        val id: String? = null,
-        val name: String? = null,
-        val starred: String? = null
-    )
 }
 

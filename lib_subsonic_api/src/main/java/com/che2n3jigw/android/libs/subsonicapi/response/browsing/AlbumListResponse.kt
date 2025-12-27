@@ -36,16 +36,4 @@ data class AlbumListResponse(
     data class AlbumList(
         val album: List<Album?>? = null
     )
-
-    @Serializable
-    data class Album(
-        val id: String? = null,
-        val parent: String? = null,
-        val title: String? = null,
-        val artist: String? = null,
-        val isDir: Boolean? = null,
-        val coverArt: String? = null,
-        val userRating: String? = null,
-        val averageRating: String? = null
-    )
 }

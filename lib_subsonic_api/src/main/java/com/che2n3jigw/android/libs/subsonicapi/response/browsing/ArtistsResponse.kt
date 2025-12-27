@@ -43,12 +43,4 @@ data class ArtistsResponse(
         val name: String? = null,
         val artist: List<Artist>? = null
     )
-
-    @Serializable
-    data class Artist(
-        val id: String? = null,
-        val name: String? = null,
-        val coverArt: String? = null,
-        val albumCount: Int? = null
-    )
 }
