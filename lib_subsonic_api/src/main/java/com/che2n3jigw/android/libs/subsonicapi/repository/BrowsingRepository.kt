@@ -43,6 +43,8 @@ import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse.Indexes
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicDirectoryResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicFoldersResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.NowPlayingResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.NowPlayingResponse.Entry
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.RandomSongsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongs2Response
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongsResponse
@@ -482,6 +484,23 @@ class BrowsingRepository(
             else -> emptyList()
         }
     }
+
+    /**
+     * 获取所有用户当前正在播放的歌曲
+     */
+    suspend fun getNowPlaying(): List<Entry?>? {
+        val result = RequestUtils.safeApiCall {
+            service.getNowPlaying()
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.nowPlaying?.entry?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
 }
 
 interface Service {
@@ -592,4 +611,8 @@ interface Service {
         @Query("offset") offset: Int? = null,
         @Query("musicFolderId") musicFolderId: Long? = null
     ): BaseResponse<SongsByGenreResponse>
+
+
+    @GET("/rest/getNowPlaying")
+    suspend fun getNowPlaying(): BaseResponse<NowPlayingResponse>
 }
