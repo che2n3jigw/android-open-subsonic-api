@@ -26,12 +26,13 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.che2n3jigw.android.libs.subsonicapi.repository.SystemRepository
+import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.subsonicapi.repository.BrowsingRepository
 import kotlinx.coroutines.launch
 
 class SubsonicApiTestActivity : AppCompatActivity() {
 
-    private val repository = SystemRepository("http://192.168.50.245:4533", "直播", "123456")
+    private val authInfo = AutoInfo("直播", "123456")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +40,41 @@ class SubsonicApiTestActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btn_ping).setOnClickListener {
             lifecycleScope.launch {
-                // repository.ping()
-                // repository.getLicense()
+                // <editor-fold defaultState="collapsed" desc="System">
+//                val repository = SystemRepository("http://192.168.50.245:4533", authInfo)
+//                repository.ping()
+//                repository.getLicense()
+                // </editor-fold>
+
+                // <editor-fold defaultState="collapsed" desc="browsing">
+//                val songId = "5e35d304abfd8c2dc66c0000e4dc814b"
+//                val albumId = "ada350bb42c91b863c0beef6e203a7d4"
+//                val artistId = "7a8941058aaf4df5147042ce104568da"
+//                val repository = BrowsingRepository("http://192.168.50.245:4533", authInfo)
+//                repository.getMusicFolders()
+//                repository.getIndexes()
+//                repository.getMusicDirectory(artistId)
+//                repository.getGenres()
+//                repository.getArtists()
+//                repository.getAlbum(albumId)
+//                repository.getSong(songId)
+//                @OptIn(UnverifiedApi::class)
+//                repository.getVideos()
+//                repository.getArtistInfo(artistId)
+//                repository.getArtistInfo2(artistId)
+//                repository.getAlbumInfo(albumId)
+//                repository.getAlbumInfo2(songId)
+//                repository.getSimilarSongs(songId)
+//                repository.getSimilarSongs2(songId)
+//                repository.getTopSongs("周杰伦")
+//                repository.getAlbumList(AlbumListType.Random)
+//                repository.getAlbumList2(AlbumListType.Random)
+//                repository.getRandomSongs()
+//                repository.getSongsByGenre("Pop")
+//                repository.getNowPlaying()
+//                repository.getStarred()
+//                repository.getStarred2()
+                // </editor-fold>
             }
         }
     }
