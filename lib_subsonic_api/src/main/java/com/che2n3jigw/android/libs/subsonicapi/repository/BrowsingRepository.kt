@@ -43,6 +43,7 @@ import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongs2Re
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Song
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SongResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.TopSongsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideoInfoResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideoInfoResponse.VideoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideosResponse
@@ -333,6 +334,25 @@ class BrowsingRepository(
             else -> emptyList()
         }
     }
+
+    /**
+     * @param artist            歌手
+     * @param count             热门歌曲数量上限
+     * @return 给定歌手的热门歌曲，数据来自 last.fm。
+     */
+    suspend fun getTopSongs(artist: String, count: Int = 50): List<Song> {
+        val result = RequestUtils.safeApiCall {
+            service.getTopSongs(artist, count)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.topSongs?.song?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
 }
 
 interface Service {
@@ -398,4 +418,10 @@ interface Service {
         @Query("id") id: String,
         @Query("count") count: Int
     ): BaseResponse<SimilarSongs2Response>
+
+    @GET("/rest/getTopSongs")
+    suspend fun getTopSongs(
+        @Query("artist") artist: String,
+        @Query("count") count: Int
+    ): BaseResponse<TopSongsResponse>
 }
