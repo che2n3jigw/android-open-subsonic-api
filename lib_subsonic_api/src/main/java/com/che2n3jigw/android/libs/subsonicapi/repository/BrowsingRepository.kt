@@ -26,9 +26,13 @@ import com.che2n3jigw.android.libs.net.RequestClient
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.subsonicapi.UnverifiedApi
+import com.che2n3jigw.android.libs.subsonicapi.bean.AlbumListType
 import com.che2n3jigw.android.libs.subsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.BaseResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Album
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumInfoResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumList2Response
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumListResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.AlbumResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfo
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.ArtistInfo2Response
@@ -154,7 +158,7 @@ class BrowsingRepository(
      * 获取专辑
      * @param id 专辑的ID
      */
-    suspend fun getAlbum(id: String): AlbumResponse.Album? {
+    suspend fun getAlbum(id: String): Album? {
         val result = RequestUtils.safeApiCall {
             service.getAlbum(id)
         }
@@ -353,6 +357,72 @@ class BrowsingRepository(
             else -> emptyList()
         }
     }
+
+    /**
+     * 获取专辑列表
+     * @param type          列表类型
+     * @param size          专辑返回数,最大500
+     * @param offset        列表偏移量。例如，如果您想翻阅最新专辑列表，这将非常有用。
+     * @param fromYear      返回指定范围内的第一年。fromYear > toYear，返回一个按时间**倒序**排列的列表。
+     * @param toYear        范围的最后一年
+     * @param genre         流派
+     * @param musicFolderId 音乐文件夹的ID,仅返回音乐文件夹中具有给定 ID 的专辑。
+     * @return 一个包含随机、最新、评分最高等专辑的列表。类似于Subsonic网页界面首页上的专辑列表。
+     */
+    suspend fun getAlbumList(
+        type: AlbumListType,
+        size: Int = 10,
+        offset: Int = 0,
+        fromYear: Int? = null,
+        toYear: Int? = null,
+        genre: String? = null,
+        musicFolderId: Long? = null
+    ): List<AlbumListResponse.Album> {
+        val result = RequestUtils.safeApiCall {
+            service.getAlbumList(type.value, size, offset, fromYear, toYear, genre, musicFolderId)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.albumList?.album?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
+
+    /**
+     * 获取专辑列表,但它会根据 ID3 标签对音乐进行分类。
+     * @param type          列表类型
+     * @param size          专辑返回数,最大500
+     * @param offset        列表偏移量。例如，如果您想翻阅最新专辑列表，这将非常有用。
+     * @param fromYear      返回指定范围内的第一年。fromYear > toYear，返回一个按时间**倒序**排列的列表。
+     * @param toYear        范围的最后一年
+     * @param genre         流派
+     * @param musicFolderId 音乐文件夹的ID,仅返回音乐文件夹中具有给定 ID 的专辑。
+     * @return 一个包含随机、最新、评分最高等专辑的列表。类似于Subsonic网页界面首页上的专辑列表。
+     */
+    suspend fun getAlbumList2(
+        type: AlbumListType,
+        size: Int = 10,
+        offset: Int = 0,
+        fromYear: Int? = null,
+        toYear: Int? = null,
+        genre: String? = null,
+        musicFolderId: Long? = null
+    ): List<Album> {
+        val result = RequestUtils.safeApiCall {
+            service.getAlbumList2(type.value, size, offset, fromYear, toYear, genre, musicFolderId)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.albumList2?.album?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
 }
 
 interface Service {
@@ -424,4 +494,26 @@ interface Service {
         @Query("artist") artist: String,
         @Query("count") count: Int
     ): BaseResponse<TopSongsResponse>
+
+    @GET("/rest/getAlbumList")
+    suspend fun getAlbumList(
+        @Query("type") type: String,
+        @Query("size") size: Int,
+        @Query("offset") offset: Int,
+        @Query("fromYear") fromYear: Int? = null,
+        @Query("toYear") toYear: Int? = null,
+        @Query("genre") genre: String? = null,
+        @Query("musicFolderId") musicFolderId: Long? = null
+    ): BaseResponse<AlbumListResponse>
+
+    @GET("/rest/getAlbumList2")
+    suspend fun getAlbumList2(
+        @Query("type") type: String,
+        @Query("size") size: Int,
+        @Query("offset") offset: Int,
+        @Query("fromYear") fromYear: Int? = null,
+        @Query("toYear") toYear: Int? = null,
+        @Query("genre") genre: String? = null,
+        @Query("musicFolderId") musicFolderId: Long? = null
+    ): BaseResponse<AlbumList2Response>
 }

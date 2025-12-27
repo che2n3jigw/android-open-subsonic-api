@@ -19,15 +19,20 @@
 // 作者: che2n3jigw
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
-// 创建时间： 12/25/25
+// 创建时间： 12/27/25
 package com.che2n3jigw.android.libs.subsonicapi.response.browsing
 
-import com.che2n3jigw.android.libs.subsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class AlbumResponse(
-    override val status: String?,
-    override val version: String?,
-    val album: Album? = null
-) : ISubsonicResponse
+data class Album(
+    val id: String? = null,
+    val name: String? = null,
+    val coverArt: String? = null,
+    val songCount: Int? = null,
+    val created: String? = null,
+    val duration: Long? = null,
+    val artist: String? = null,
+    val artistId: String? = null,
+    val song: List<Song>? = null
+)
