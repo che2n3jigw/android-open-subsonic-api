@@ -43,6 +43,7 @@ import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.IndexesResponse.Indexes
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicDirectoryResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.MusicFoldersResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.RandomSongsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongs2Response
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Song
@@ -423,6 +424,35 @@ class BrowsingRepository(
             else -> emptyList()
         }
     }
+
+    /**
+     * 获取随即歌曲列表
+     * @param size          专辑返回数,最大500
+     * @param fromYear      返回指定范围内的第一年。fromYear > toYear，返回一个按时间**倒序**排列的列表。
+     * @param toYear        范围的最后一年
+     * @param genre         流派
+     * @param musicFolderId 音乐文件夹的ID,仅返回音乐文件夹中具有给定 ID 的专辑。
+     * @return 符合给定条件的随机歌曲。
+     */
+    suspend fun getRandomSongs(
+        size: Int = 10,
+        fromYear: Int? = null,
+        toYear: Int? = null,
+        genre: String? = null,
+        musicFolderId: Long? = null
+    ): List<Song> {
+        val result = RequestUtils.safeApiCall {
+            service.getRandomSongs(size, genre, fromYear, toYear, musicFolderId)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.randomSongs?.song?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
 }
 
 interface Service {
@@ -516,4 +546,13 @@ interface Service {
         @Query("genre") genre: String? = null,
         @Query("musicFolderId") musicFolderId: Long? = null
     ): BaseResponse<AlbumList2Response>
+
+    @GET("/rest/getRandomSongs")
+    suspend fun getRandomSongs(
+        @Query("size") size: Int,
+        @Query("genre") genre: String? = null,
+        @Query("fromYear") fromYear: Int? = null,
+        @Query("toYear") toYear: Int? = null,
+        @Query("musicFolderId") musicFolderId: Long? = null
+    ): BaseResponse<RandomSongsResponse>
 }
