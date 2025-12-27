@@ -48,6 +48,7 @@ import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongs2Re
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SimilarSongsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.Song
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SongResponse
+import com.che2n3jigw.android.libs.subsonicapi.response.browsing.SongsByGenreResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.TopSongsResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideoInfoResponse
 import com.che2n3jigw.android.libs.subsonicapi.response.browsing.VideoInfoResponse.VideoInfo
@@ -453,6 +454,34 @@ class BrowsingRepository(
             else -> emptyList()
         }
     }
+
+
+    /**
+     * 获取歌曲列表通过流派
+     * @param genre         流派
+     * @param count         歌曲返回数量 最大500
+     * @param offset        列表偏移量。例如，如果您想翻阅最新专辑列表，这将非常有用。
+     * @param musicFolderId 音乐文件夹的ID,仅返回音乐文件夹中具有给定 ID 的专辑。
+     * @return 符合给定条件的随机歌曲。
+     */
+    suspend fun getSongsByGenre(
+        genre: String,
+        count: Int = 10,
+        offset: Int = 0,
+        musicFolderId: Long? = null
+    ): List<Song> {
+        val result = RequestUtils.safeApiCall {
+            service.getSongsByGenre(genre, count, offset, musicFolderId)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> {
+                result.data.response?.songsByGenre?.song?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
 }
 
 interface Service {
@@ -555,4 +584,12 @@ interface Service {
         @Query("toYear") toYear: Int? = null,
         @Query("musicFolderId") musicFolderId: Long? = null
     ): BaseResponse<RandomSongsResponse>
+
+    @GET("/rest/getSongsByGenre")
+    suspend fun getSongsByGenre(
+        @Query("genre") genre: String,
+        @Query("count") count: Int,
+        @Query("offset") offset: Int? = null,
+        @Query("musicFolderId") musicFolderId: Long? = null
+    ): BaseResponse<SongsByGenreResponse>
 }
