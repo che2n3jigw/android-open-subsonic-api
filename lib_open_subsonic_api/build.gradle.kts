@@ -1,24 +1,21 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
-    namespace = "com.che2n3jigw.android.opensubsonicapi"
+    namespace = "com.che2n3jigw.android.libs.opensubsonicapi"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.che2n3jigw.android.opensubsonicapi"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -34,7 +31,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-
     kotlin {
         compilerOptions {
             jvmTarget = JvmTarget.JVM_1_8
@@ -43,6 +39,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.appcompat)
-    implementation(project(":lib_open_subsonic_api"))
+    implementation(libs.android.net)
+    // retrofit
+    implementation(libs.retrofit)
+    // 实体类转换器
+    implementation(libs.converter.kotlinx.serialization)
+    // kotlin序列化
+    implementation(libs.kotlinx.serialization.json)
 }
