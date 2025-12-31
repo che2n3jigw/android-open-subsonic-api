@@ -43,6 +43,9 @@ class SubsonicApiTestActivity : AppCompatActivity() {
 //                val repository = SystemRepository("http://192.168.50.245:4533", authInfo)
 //                repository.ping()
 //                repository.getLicense()
+//                repository.getOpenSubsonicExtensions()
+//                @OptIn(UnverifiedApi::class)
+//                repository.tokenInfo()
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="browsing">

@@ -16,25 +16,29 @@
  *
  */
 
-// 作者: che2n3jigw
-// 邮箱: che2n3jigw@163.com
-// 博客: che2n3jigw.github.io
-// 创建时间： 12/19/25
-package com.che2n3jigw.android.libs.opensubsonicapi.response.system
+package com.che2n3jigw.android.libs.opensubsonicapi.response.common
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
 /**
- * ping接口返回数据类型
+ * A contributor artist for a song or an album
  */
 @Serializable
-class PingResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val error: Error?,
-    override val openSubsonic: Boolean?
-) : ISubsonicResponse
+data class Contributor(
+    /**
+     * The contributor role.
+     */
+    val role: String? = null,
+
+    /**
+     * The subRole for roles that may require it. Ex: The instrument for the performer role (TMCL/performer tags).
+     * Note: For consistency between different tag formats,
+     * the TIPL sub roles should be directly exposed in the role field.
+     */
+    val subRole: String? = null,
+
+    /**
+     * An artist from ID3 tags.
+     */
+    val artist: ArtistID3? = null
+)

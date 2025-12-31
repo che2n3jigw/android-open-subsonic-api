@@ -16,19 +16,39 @@
  *
  */
 
-// 作者: che2n3jigw
-// 邮箱: che2n3jigw@163.com
-// 博客: che2n3jigw.github.io
-// 创建时间： 12/27/25
-package com.che2n3jigw.android.libs.opensubsonicapi.response.browsing
+package com.che2n3jigw.android.libs.opensubsonicapi.response.common
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Child
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SimilarSongs(
+data class ReplayGain(
     /**
-     * SimilarSongs list.
+     * The track replay gain value.
      */
-    val song: List<Child?>? = null
+    val trackGain: Int? = null,
+
+    /**
+     * The album replay gain value.
+     */
+    val albumGain: Int? = null,
+
+    /**
+     * The track peak value.
+     */
+    val trackPeak: Int? = null,
+
+    /**
+     * The album peak value.
+     */
+    val albumPeak: Int? = null,
+
+    /**
+     * The base gain value.
+     */
+    val baseGain: Int? = null,
+
+    /**
+     * An optional fallback gain that clients should apply when the corresponding gain value is missing.
+     */
+    val fallbackGain: Int? = null
 )

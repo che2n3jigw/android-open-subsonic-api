@@ -16,25 +16,25 @@
  *
  */
 
-// 作者: che2n3jigw
-// 邮箱: che2n3jigw@163.com
-// 博客: che2n3jigw.github.io
-// 创建时间： 12/19/25
-package com.che2n3jigw.android.libs.opensubsonicapi.response.system
+package com.che2n3jigw.android.libs.opensubsonicapi.response.lists
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.AlbumID3WithSongs
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.ArtistID3
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Child
 import kotlinx.serialization.Serializable
 
-/**
- * ping接口返回数据类型
- */
 @Serializable
-class PingResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val error: Error?,
-    override val openSubsonic: Boolean?
-) : ISubsonicResponse
+data class Starred2(
+    /**
+     * Starred artists
+     */
+    val artist: List<ArtistID3?>? = null,
+    /**
+     * Starred albums
+     */
+    val album: List<AlbumID3WithSongs?>? = null,
+    /**
+     * Starred songs
+     */
+    val song: List<Child?>? = null,
+)

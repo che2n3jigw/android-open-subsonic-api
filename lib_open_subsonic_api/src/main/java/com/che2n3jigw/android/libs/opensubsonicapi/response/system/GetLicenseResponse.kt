@@ -26,15 +26,14 @@ import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
 import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
-/**
- * ping接口返回数据类型
- */
 @Serializable
-class PingResponse(
+data class GetLicenseResponse(
     override val status: String?,
     override val version: String?,
     override val type: String?,
     override val serverVersion: String?,
+    override val openSubsonic: Boolean?,
     override val error: Error?,
-    override val openSubsonic: Boolean?
+    val license: License? = null
 ) : ISubsonicResponse
+

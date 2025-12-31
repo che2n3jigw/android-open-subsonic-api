@@ -23,149 +23,150 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.repository
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.AlbumInfoResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.AlbumList2Response
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.AlbumListResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.AlbumResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistInfo2Response
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistInfoResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistsResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GenresResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.IndexesResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.MusicDirectoryResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.MusicFoldersResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.NowPlayingResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.RandomSongsResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.SimilarSongs2Response
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.SimilarSongsResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.SongResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.SongsByGenreResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Starred2Response
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.StarredResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.TopSongsResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.VideoInfoResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.VideosResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetAlbumInfoResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetAlbumResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetArtistInfo2Response
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetArtistInfoResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetArtistResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetArtistsResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetGenresResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetIndexesResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetMusicDirectoryResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetMusicFoldersResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetSimilarSongs2Response
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetSimilarSongsResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetSongResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetTopSongsResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetVideoInfoResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GetVideosResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- * Subsonic Browsing API
+ * Open Subsonic Browsing API
  */
 interface BrowsingService {
-    @GET("/rest/getMusicFolders")
-    suspend fun getMusicFolders(): BaseResponse<MusicFoldersResponse>
-
-    @GET("/rest/getIndexes")
-    suspend fun getIndexes(
-        @Query("musicFolderId") musicFolderId: Int? = null,
-        @Query("ifModifiedSince") ifModifiedSince: Long? = null
-    ): BaseResponse<IndexesResponse>
-
-    @GET("/rest/getMusicDirectory")
-    suspend fun getMusicDirectory(@Query("id") id: String): BaseResponse<MusicDirectoryResponse>
-
-    @GET("/rest/getGenres")
-    suspend fun getGenres(): BaseResponse<GenresResponse>
-
-    @GET("/rest/getArtists")
-    suspend fun getArtists(@Query("musicFolderId") musicFolderId: Long? = null): BaseResponse<ArtistsResponse>
-
+    /**
+     * Returns details for an album, including a list of songs. This method organizes music according to ID3 tags.
+     */
     @GET("/rest/getAlbum")
-    suspend fun getAlbum(@Query("id") id: String): BaseResponse<AlbumResponse>
+    suspend fun getAlbum(@Query("id") id: String): BaseResponse<GetAlbumResponse>
 
-    @GET("/rest/getSong")
-    suspend fun getSong(@Query("id") id: String): BaseResponse<SongResponse>
+    /**
+     * Returns album notes, image URLs etc, using data from last.fm.
+     */
+    @GET("/rest/getAlbumInfo")
+    suspend fun getAlbumInfo(@Query("id") id: String): BaseResponse<GetAlbumInfoResponse>
 
-    @GET("/rest/getVideos")
-    suspend fun getVideos(): BaseResponse<VideosResponse>
+    /**
+     * Similar to getAlbumInfo, but organizes music according to ID3 tags.
+     */
+    @GET("/rest/getAlbumInfo2")
+    suspend fun getAlbumInfo2(@Query("id") id: String): BaseResponse<GetAlbumInfoResponse>
 
-    @GET("/rest/getVideoInfo")
-    suspend fun getVideoInfo(@Query("id") id: String): BaseResponse<VideoInfoResponse>
+    /**
+     * Returns details for an artist, including a list of albums. This method organizes music according to ID3 tags.
+     */
+    @GET("/rest/getArtist")
+    suspend fun getArtist(@Query("id") id: String): BaseResponse<GetArtistResponse>
 
+    /**
+     * Returns album notes, image URLs etc, using data from last.fm.
+     */
     @GET("/rest/getArtistInfo")
     suspend fun getArtistInfo(
         @Query("id") id: String,
         @Query("count") count: Int,
         @Query("includeNotPresent") includeNotPresent: Boolean
-    ): BaseResponse<ArtistInfoResponse>
+    ): BaseResponse<GetArtistInfoResponse>
 
+    /**
+     * Similar to getAlbumInfo, but organizes music according to ID3 tags.
+     */
     @GET("/rest/getArtistInfo2")
     suspend fun getArtistInfo2(
         @Query("id") id: String,
         @Query("count") count: Int,
         @Query("includeNotPresent") includeNotPresent: Boolean
-    ): BaseResponse<ArtistInfo2Response>
+    ): BaseResponse<GetArtistInfo2Response>
 
-    @GET("/rest/getAlbumInfo")
-    suspend fun getAlbumInfo(@Query("id") id: String): BaseResponse<AlbumInfoResponse>
+    /**
+     * Returns details for an artist, including a list of albums. This method organizes music according to ID3 tags.
+     */
+    @GET("/rest/getArtists")
+    suspend fun getArtists(@Query("musicFolderId") musicFolderId: String? = null): BaseResponse<GetArtistsResponse>
 
-    @GET("/rest/getAlbumInfo2")
-    suspend fun getAlbumInfo2(@Query("id") id: String): BaseResponse<AlbumInfoResponse>
+    /**
+     * Returns all genres.
+     */
+    @GET("/rest/getGenres")
+    suspend fun getGenres(): BaseResponse<GetGenresResponse>
 
+    /**
+     * Returns an indexed structure of all artists.
+     */
+    @GET("/rest/getIndexes")
+    suspend fun getIndexes(
+        @Query("musicFolderId") musicFolderId: String? = null,
+        @Query("ifModifiedSince") ifModifiedSince: Long? = null
+    ): BaseResponse<GetIndexesResponse>
+
+    /**
+     * Returns a listing of all files in a music directory.
+     * Typically used to get list of albums for an artist, or list of songs for an album.
+     */
+    @GET("/rest/getMusicDirectory")
+    suspend fun getMusicDirectory(@Query("id") id: String): BaseResponse<GetMusicDirectoryResponse>
+
+    /**
+     * Returns all configured top-level music folders. Takes no extra parameters.
+     */
+    @GET("/rest/getMusicFolders")
+    suspend fun getMusicFolders(): BaseResponse<GetMusicFoldersResponse>
+
+    /**
+     * Returns a random collection of songs from the given artist and similar artists, using data from last.fm.
+     * Typically used for artist radio features.
+     */
     @GET("/rest/getSimilarSongs")
     suspend fun getSimilarSongs(
         @Query("id") id: String,
         @Query("count") count: Int
-    ): BaseResponse<SimilarSongsResponse>
+    ): BaseResponse<GetSimilarSongsResponse>
 
+    /**
+     * Similar to getSimilarSongs, but organizes music according to ID3 tags.
+     */
     @GET("/rest/getSimilarSongs2")
     suspend fun getSimilarSongs2(
         @Query("id") id: String,
         @Query("count") count: Int
-    ): BaseResponse<SimilarSongs2Response>
+    ): BaseResponse<GetSimilarSongs2Response>
 
+    /**
+     * Returns details for a song.
+     */
+    @GET("/rest/getSong")
+    suspend fun getSong(@Query("id") id: String): BaseResponse<GetSongResponse>
+
+    /**
+     * Returns top songs for the given artist, using data from last.fm.
+     */
     @GET("/rest/getTopSongs")
     suspend fun getTopSongs(
-        @Query("artist") artist: String,
+        @Query("id") id: String,
         @Query("count") count: Int
-    ): BaseResponse<TopSongsResponse>
+    ): BaseResponse<GetTopSongsResponse>
 
-    @GET("/rest/getAlbumList")
-    suspend fun getAlbumList(
-        @Query("type") type: String,
-        @Query("size") size: Int,
-        @Query("offset") offset: Int,
-        @Query("fromYear") fromYear: Int? = null,
-        @Query("toYear") toYear: Int? = null,
-        @Query("genre") genre: String? = null,
-        @Query("musicFolderId") musicFolderId: Long? = null
-    ): BaseResponse<AlbumListResponse>
+    /**
+     * Returns details for a video, including information about available audio tracks, subtitles (captions) and conversions.
+     */
+    @GET("/rest/getVideoInfo")
+    suspend fun getVideoInfo(@Query("id") id: String): BaseResponse<GetVideoInfoResponse>
 
-    @GET("/rest/getAlbumList2")
-    suspend fun getAlbumList2(
-        @Query("type") type: String,
-        @Query("size") size: Int,
-        @Query("offset") offset: Int,
-        @Query("fromYear") fromYear: Int? = null,
-        @Query("toYear") toYear: Int? = null,
-        @Query("genre") genre: String? = null,
-        @Query("musicFolderId") musicFolderId: Long? = null
-    ): BaseResponse<AlbumList2Response>
-
-    @GET("/rest/getRandomSongs")
-    suspend fun getRandomSongs(
-        @Query("size") size: Int,
-        @Query("genre") genre: String? = null,
-        @Query("fromYear") fromYear: Int? = null,
-        @Query("toYear") toYear: Int? = null,
-        @Query("musicFolderId") musicFolderId: Long? = null
-    ): BaseResponse<RandomSongsResponse>
-
-    @GET("/rest/getSongsByGenre")
-    suspend fun getSongsByGenre(
-        @Query("genre") genre: String,
-        @Query("count") count: Int,
-        @Query("offset") offset: Int? = null,
-        @Query("musicFolderId") musicFolderId: Long? = null
-    ): BaseResponse<SongsByGenreResponse>
-
-
-    @GET("/rest/getNowPlaying")
-    suspend fun getNowPlaying(): BaseResponse<NowPlayingResponse>
-
-    @GET("/rest/getStarred")
-    suspend fun getStarred(@Query("musicFolderId") musicFolderId: Long? = null): BaseResponse<StarredResponse>
-
-    @GET("/rest/getStarred2")
-    suspend fun getStarred2(@Query("musicFolderId") musicFolderId: Long? = null): BaseResponse<Starred2Response>
+    /**
+     * Returns all video files.
+     */
+    @GET("/rest/getVideos")
+    suspend fun getVideos(): BaseResponse<GetVideosResponse>
 }

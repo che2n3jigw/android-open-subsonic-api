@@ -26,21 +26,18 @@ import com.che2n3jigw.android.libs.net.RequestClient
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.opensubsonicapi.UnverifiedApi
-import com.che2n3jigw.android.libs.opensubsonicapi.bean.AlbumListType
 import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Album
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.AlbumInfoResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.AlbumID3WithSongs
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.AlbumInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistInfo
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistsResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.GenresResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.IndexesResponse.Indexes
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.MusicDirectoryResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.MusicFoldersResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.NowPlayingResponse.Entry
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Song
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Starred
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.VideoInfoResponse.VideoInfo
-import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.VideosResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistInfo2
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistWithAlbumsID3
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistsID3
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Child
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Directory
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Genre
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Indexes
+import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.MusicFolder
 
 /**
  * Subsonic Browsing API 远程库
@@ -58,98 +55,11 @@ class BrowsingRepository(
     )
 
     /**
-     * 获取音乐文件夹
-     */
-    suspend fun getMusicFolders(): List<MusicFoldersResponse.MusicFolder> {
-        val result = RequestUtils.safeApiCall {
-            service.getMusicFolders()
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success ->
-                result.data.response?.musicFolders?.musicFolder?.filterNotNull() ?: emptyList()
-            // 请求失败
-            else -> emptyList()
-        }
-    }
-
-    /**
-     * 获取索引结构
-     * @return 所有艺术家的索引结构
-     */
-    suspend fun getIndexes(musicFolderId: Int? = null, ifModifiedSince: Long? = null): Indexes? {
-        val result = RequestUtils.safeApiCall {
-            service.getIndexes(musicFolderId, ifModifiedSince)
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> result.data.response?.indexes
-            // 请求失败
-            else -> null
-        }
-    }
-
-    /**
-     * 用于获取某个艺术家的专辑列表，或某个专辑的歌曲列表。
-     * @param id 音乐目录的ID(艺术家id/专辑id),通过getIndexes/getMusicDirectory获取
-     * @return 音乐目录中所有文件的列表
-     */
-    suspend fun getMusicDirectory(id: String): MusicDirectoryResponse.Directory? {
-        val result = RequestUtils.safeApiCall {
-            service.getMusicDirectory(id)
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> result.data.response?.directory
-            // 请求失败
-            else -> null
-        }
-    }
-
-    /**
-     * 获取流派
-     */
-    suspend fun getGenres(): List<GenresResponse.Genre> {
-        val result = RequestUtils.safeApiCall {
-            service.getGenres()
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.genres?.genre?.filterNotNull() ?: emptyList()
-            }
-            // 请求失败
-            else -> emptyList()
-        }
-    }
-
-    /**
-     * 获取艺术家
-     * 与 getIndexes 类似，但它是根据 ID3 标签对音乐进行组织。
-     * @param musicFolderId 如果指定，则仅返回音乐文件夹中具有给定 ID 的艺术家。
-     */
-    suspend fun getArtists(musicFolderId: Long? = null): ArtistsResponse.Artists? {
-        val result = RequestUtils.safeApiCall {
-            service.getArtists(musicFolderId)
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.artists
-            }
-            // 请求失败
-            else -> null
-        }
-    }
-
-    /**
-     * 获取专辑
+     * 获取专辑的详细信息，包括歌曲列表。此方法根据 ID3 标签对音乐进行分类。
      * @param id 专辑的ID
      */
-    suspend fun getAlbum(id: String): Album? {
-        val result = RequestUtils.safeApiCall {
-            service.getAlbum(id)
-        }
+    suspend fun getAlbum(id: String): AlbumID3WithSongs? {
+        val result = RequestUtils.safeApiCall { service.getAlbum(id) }
         return when (result) {
             // 请求成功
             is RequestResult.Success -> {
@@ -161,53 +71,42 @@ class BrowsingRepository(
     }
 
     /**
-     * 获取歌曲
-     * @param id 歌曲的ID
+     * 获取专辑信息
+     * @param id 专辑的ID/歌曲ID
      */
-    suspend fun getSong(id: String): Song? {
-        val result = RequestUtils.safeApiCall {
-            service.getSong(id)
-        }
+    suspend fun getAlbumInfo(id: String): AlbumInfo? {
+        val result = RequestUtils.safeApiCall { service.getAlbumInfo(id) }
         return when (result) {
             // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.song
-            }
+            is RequestResult.Success -> result.data.response?.albumInfo
             // 请求失败
             else -> null
         }
     }
 
     /**
-     * 获取所有视频
+     * 与 getAlbumInfo 类似，但它是根据 ID3 标签对音乐进行分类。
+     * @param id 专辑的ID
      */
-    @UnverifiedApi
-    suspend fun getVideos(): List<VideosResponse.Video> {
-        val result = RequestUtils.safeApiCall {
-            service.getVideos()
-        }
+    suspend fun getAlbumInfo2(id: String): AlbumInfo? {
+        val result = RequestUtils.safeApiCall { service.getAlbumInfo2(id) }
         return when (result) {
             // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.videos?.video?.filterNotNull() ?: emptyList()
-            }
+            is RequestResult.Success -> result.data.response?.albumInfo
             // 请求失败
-            else -> emptyList()
+            else -> null
         }
     }
 
     /**
-     * 获取视频
-     * @param id 视频的ID
+     * 获取艺术家详情,ID3 tags 分类
+     * @param id 艺术家的ID
      */
-    @UnverifiedApi
-    suspend fun getVideoInfo(id: String): VideoInfo? {
-        val result = RequestUtils.safeApiCall {
-            service.getVideoInfo(id)
-        }
+    suspend fun getArtist(id: String): ArtistWithAlbumsID3? {
+        val result = RequestUtils.safeApiCall { service.getArtist(id) }
         return when (result) {
             // 请求成功
-            is RequestResult.Success -> result.data.response?.videoInfo
+            is RequestResult.Success -> result.data.response?.artist
             // 请求失败
             else -> null
         }
@@ -224,9 +123,8 @@ class BrowsingRepository(
         count: Int = 20,
         includeNotPresent: Boolean = false
     ): ArtistInfo? {
-        val result = RequestUtils.safeApiCall {
-            service.getArtistInfo(id, count, includeNotPresent)
-        }
+        val result =
+            RequestUtils.safeApiCall { service.getArtistInfo(id, count, includeNotPresent) }
         return when (result) {
             // 请求成功
             is RequestResult.Success -> result.data.response?.artistInfo
@@ -245,10 +143,9 @@ class BrowsingRepository(
         id: String,
         count: Int = 20,
         includeNotPresent: Boolean = false
-    ): ArtistInfo? {
-        val result = RequestUtils.safeApiCall {
-            service.getArtistInfo2(id, count, includeNotPresent)
-        }
+    ): ArtistInfo2? {
+        val result =
+            RequestUtils.safeApiCall { service.getArtistInfo2(id, count, includeNotPresent) }
         return when (result) {
             // 请求成功
             is RequestResult.Success -> result.data.response?.artistInfo2
@@ -258,46 +155,89 @@ class BrowsingRepository(
     }
 
     /**
-     * 获取专辑信息
-     * @param id 专辑的ID/歌曲ID
+     * 获取所有艺术家
+     * 与 getIndexes 类似，但它是根据 ID3 标签对音乐进行组织。
+     * @param musicFolderId 如果指定，则仅返回音乐文件夹中具有给定 ID 的艺术家。
      */
-    suspend fun getAlbumInfo(id: String): AlbumInfoResponse.AlbumInfo? {
-        val result = RequestUtils.safeApiCall {
-            service.getAlbumInfo(id)
-        }
+    suspend fun getArtists(musicFolderId: String? = null): ArtistsID3? {
+        val result = RequestUtils.safeApiCall { service.getArtists(musicFolderId) }
         return when (result) {
             // 请求成功
-            is RequestResult.Success -> result.data.response?.albumInfo
+            is RequestResult.Success -> result.data.response?.artists
             // 请求失败
             else -> null
         }
     }
 
     /**
-     * 获取专辑信息
-     * @param id 专辑的ID
+     * 获取所有流派
      */
-    suspend fun getAlbumInfo2(id: String): AlbumInfoResponse.AlbumInfo? {
-        val result = RequestUtils.safeApiCall {
-            service.getAlbumInfo2(id)
-        }
+    suspend fun getGenres(): List<Genre> {
+        val result = RequestUtils.safeApiCall { service.getGenres() }
         return when (result) {
             // 请求成功
-            is RequestResult.Success -> result.data.response?.albumInfo
+            is RequestResult.Success -> {
+                result.data.response?.genres?.genre?.filterNotNull() ?: emptyList()
+            }
+            // 请求失败
+            else -> emptyList()
+        }
+    }
+
+    /**
+     * 获取所有艺术家的索引结构。
+     * @param musicFolderId     如果指定，则仅返回音乐文件夹中具有给定 ID 的艺术家。请参阅 getMusicFolders。
+     * @param ifModifiedSince   如果指定，则仅当艺术家集合自给定时间（自 1970 年 1 月 1 日以来的毫秒数）以来发生变化时才返回结果。
+     * @return 所有艺术家的索引结构
+     */
+    suspend fun getIndexes(musicFolderId: String? = null, ifModifiedSince: Long? = null): Indexes? {
+        val result = RequestUtils.safeApiCall { service.getIndexes(musicFolderId, ifModifiedSince) }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.indexes
             // 请求失败
             else -> null
         }
     }
 
     /**
-     * 获取相似歌曲
+     * 用于获取某个艺术家的专辑列表，或某个专辑的歌曲列表。
+     * @param id 音乐目录的ID(艺术家id/专辑id),通过getIndexes/getMusicDirectory获取
+     * @return 音乐目录中所有文件的列表
+     */
+    suspend fun getMusicDirectory(id: String): Directory? {
+        val result = RequestUtils.safeApiCall {
+            service.getMusicDirectory(id)
+        }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.directory
+            // 请求失败
+            else -> null
+        }
+    }
+
+    /**
+     * 返回所有已配置的顶级音乐文件夹
+     */
+    suspend fun getMusicFolders(): List<MusicFolder> {
+        val result = RequestUtils.safeApiCall { service.getMusicFolders() }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success ->
+                result.data.response?.musicFolders?.musicFolder?.filterNotNull() ?: emptyList()
+            // 请求失败
+            else -> emptyList()
+        }
+    }
+
+    /**
+     * 返回给定艺术家及其相似艺术家的随机歌曲集合。
      * @param id                歌曲的ID
      * @param count             相似歌曲数量上限
      */
-    suspend fun getSimilarSongs(id: String, count: Int = 50): List<Song> {
-        val result = RequestUtils.safeApiCall {
-            service.getSimilarSongs(id, count)
-        }
+    suspend fun getSimilarSongs(id: String, count: Int = 50): List<Child> {
+        val result = RequestUtils.safeApiCall { service.getSimilarSongs(id, count) }
         return when (result) {
             // 请求成功
             is RequestResult.Success -> {
@@ -309,14 +249,12 @@ class BrowsingRepository(
     }
 
     /**
-     * 获取相似歌曲，但它是根据 ID3 标签对音乐进行分类。
+     * 返回给定艺术家和类似艺术家的随机歌曲集合（v2）。
      * @param id                歌曲的ID
      * @param count             相似歌曲数量上限
      */
-    suspend fun getSimilarSongs2(id: String, count: Int = 50): List<Song> {
-        val result = RequestUtils.safeApiCall {
-            service.getSimilarSongs2(id, count)
-        }
+    suspend fun getSimilarSongs2(id: String, count: Int = 50): List<Child> {
+        val result = RequestUtils.safeApiCall { service.getSimilarSongs2(id, count) }
         return when (result) {
             // 请求成功
             is RequestResult.Success -> {
@@ -327,15 +265,29 @@ class BrowsingRepository(
         }
     }
 
+
     /**
+     * 获取歌曲详情
+     * @param id 歌曲的ID
+     */
+    suspend fun getSong(id: String): Child? {
+        val result = RequestUtils.safeApiCall { service.getSong(id) }
+        return when (result) {
+            // 请求成功
+            is RequestResult.Success -> result.data.response?.song
+            // 请求失败
+            else -> null
+        }
+    }
+
+    /**
+     * 返回指定歌手的热门歌曲。
      * @param artist            歌手
      * @param count             热门歌曲数量上限
      * @return 给定歌手的热门歌曲，数据来自 last.fm。
      */
-    suspend fun getTopSongs(artist: String, count: Int = 50): List<Song> {
-        val result = RequestUtils.safeApiCall {
-            service.getTopSongs(artist, count)
-        }
+    suspend fun getTopSongs(artist: String, count: Int = 50): List<Child> {
+        val result = RequestUtils.safeApiCall { service.getTopSongs(artist, count) }
         return when (result) {
             // 请求成功
             is RequestResult.Success -> {
@@ -347,174 +299,19 @@ class BrowsingRepository(
     }
 
     /**
-     * 获取专辑列表
-     * @param type          列表类型
-     * @param size          专辑返回数,最大500
-     * @param offset        列表偏移量。例如，如果您想翻阅最新专辑列表，这将非常有用。
-     * @param fromYear      返回指定范围内的第一年。fromYear > toYear，返回一个按时间**倒序**排列的列表。
-     * @param toYear        范围的最后一年
-     * @param genre         流派
-     * @param musicFolderId 音乐文件夹的ID,仅返回音乐文件夹中具有给定 ID 的专辑。
-     * @return 一个包含随机、最新、评分最高等专辑的列表。类似于Subsonic网页界面首页上的专辑列表。
+     * 获取视频详情
+     * @param id 视频的ID
      */
-    suspend fun getAlbumList(
-        type: AlbumListType,
-        size: Int = 10,
-        offset: Int = 0,
-        fromYear: Int? = null,
-        toYear: Int? = null,
-        genre: String? = null,
-        musicFolderId: Long? = null
-    ): List<Album> {
-        val result = RequestUtils.safeApiCall {
-            service.getAlbumList(type.value, size, offset, fromYear, toYear, genre, musicFolderId)
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.albumList?.album?.filterNotNull() ?: emptyList()
-            }
-            // 请求失败
-            else -> emptyList()
-        }
+    @UnverifiedApi
+    suspend fun getVideoInfo(id: String) {
+        RequestUtils.safeApiCall { service.getVideoInfo(id) }
     }
 
     /**
-     * 获取专辑列表,但它会根据 ID3 标签对音乐进行分类。
-     * @param type          列表类型
-     * @param size          专辑返回数,最大500
-     * @param offset        列表偏移量。例如，如果您想翻阅最新专辑列表，这将非常有用。
-     * @param fromYear      返回指定范围内的第一年。fromYear > toYear，返回一个按时间**倒序**排列的列表。
-     * @param toYear        范围的最后一年
-     * @param genre         流派
-     * @param musicFolderId 音乐文件夹的ID,仅返回音乐文件夹中具有给定 ID 的专辑。
-     * @return 一个包含随机、最新、评分最高等专辑的列表。类似于Subsonic网页界面首页上的专辑列表。
+     * 获取所有视频
      */
-    suspend fun getAlbumList2(
-        type: AlbumListType,
-        size: Int = 10,
-        offset: Int = 0,
-        fromYear: Int? = null,
-        toYear: Int? = null,
-        genre: String? = null,
-        musicFolderId: Long? = null
-    ): List<Album> {
-        val result = RequestUtils.safeApiCall {
-            service.getAlbumList2(type.value, size, offset, fromYear, toYear, genre, musicFolderId)
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.albumList2?.album?.filterNotNull() ?: emptyList()
-            }
-            // 请求失败
-            else -> emptyList()
-        }
-    }
-
-    /**
-     * 获取随即歌曲列表
-     * @param size          专辑返回数,最大500
-     * @param fromYear      返回指定范围内的第一年。fromYear > toYear，返回一个按时间**倒序**排列的列表。
-     * @param toYear        范围的最后一年
-     * @param genre         流派
-     * @param musicFolderId 音乐文件夹的ID,仅返回音乐文件夹中具有给定 ID 的专辑。
-     * @return 符合给定条件的随机歌曲。
-     */
-    suspend fun getRandomSongs(
-        size: Int = 10,
-        fromYear: Int? = null,
-        toYear: Int? = null,
-        genre: String? = null,
-        musicFolderId: Long? = null
-    ): List<Song> {
-        val result = RequestUtils.safeApiCall {
-            service.getRandomSongs(size, genre, fromYear, toYear, musicFolderId)
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.randomSongs?.song?.filterNotNull() ?: emptyList()
-            }
-            // 请求失败
-            else -> emptyList()
-        }
-    }
-
-
-    /**
-     * 获取歌曲列表通过流派
-     * @param genre         流派
-     * @param count         歌曲返回数量 最大500
-     * @param offset        列表偏移量。例如，如果您想翻阅最新专辑列表，这将非常有用。
-     * @param musicFolderId 音乐文件夹的ID,仅返回音乐文件夹中具有给定 ID 的专辑。
-     * @return 符合给定条件的随机歌曲。
-     */
-    suspend fun getSongsByGenre(
-        genre: String,
-        count: Int = 10,
-        offset: Int = 0,
-        musicFolderId: Long? = null
-    ): List<Song> {
-        val result = RequestUtils.safeApiCall {
-            service.getSongsByGenre(genre, count, offset, musicFolderId)
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.songsByGenre?.song?.filterNotNull() ?: emptyList()
-            }
-            // 请求失败
-            else -> emptyList()
-        }
-    }
-
-    /**
-     * 获取所有用户当前正在播放的歌曲
-     */
-    suspend fun getNowPlaying(): List<Entry?>? {
-        val result = RequestUtils.safeApiCall {
-            service.getNowPlaying()
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.nowPlaying?.entry?.filterNotNull() ?: emptyList()
-            }
-            // 请求失败
-            else -> emptyList()
-        }
-    }
-
-    /**
-     * @param musicFolderId 音乐文件夹的ID
-     * @return 返回星号歌曲、专辑和歌手。
-     */
-    suspend fun getStarred(musicFolderId: Long? = null): Starred? {
-        val result = RequestUtils.safeApiCall {
-            service.getStarred(musicFolderId)
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> result.data.response?.starred
-            // 请求失败
-            else -> null
-        }
-    }
-
-    /**
-     * @param musicFolderId 音乐文件夹的ID
-     * @return 返回星号歌曲、专辑和歌手。但它会根据 ID3 标签对音乐进行分类。
-     */
-    suspend fun getStarred2(musicFolderId: Long? = null): Starred? {
-        val result = RequestUtils.safeApiCall {
-            service.getStarred2(musicFolderId)
-        }
-        return when (result) {
-            // 请求成功
-            is RequestResult.Success -> result.data.response?.starred2
-            // 请求失败
-            else -> null
-        }
+    @UnverifiedApi
+    suspend fun getVideos() {
+        RequestUtils.safeApiCall { service.getVideos() }
     }
 }

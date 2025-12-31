@@ -19,43 +19,52 @@
 // 作者: che2n3jigw
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
-// 创建时间： 12/26/25
+// 创建时间： 12/31/25
 package com.che2n3jigw.android.libs.opensubsonicapi.response.browsing
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Artist
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.AlbumID3WithSongs
 import kotlinx.serialization.Serializable
 
-/**
- * Artist info.
- */
 @Serializable
-data class ArtistInfo(
+data class ArtistWithAlbumsID3(
     /**
-     * Artist biography
+     * The id of the artist
      */
-    val biography: String? = null,
+    val id: String? = null,
     /**
-     * Artist musicBrainzId
+     * The artist name.
+     */
+    val name: String? = null,
+    /**
+     * A covertArt id.
+     */
+    val coverArt: String? = null,
+    /**
+     * An url to an external image source.
+     */
+    val artistImageUrl: String? = null,
+    /**
+     * Artist album count.
+     */
+    val albumCount: Int? = null,
+    /**
+     * Date the artist was starred.
+     */
+    val starred: String? = null,
+    /**
+     * The artist MusicBrainzID.
      */
     val musicBrainzId: String? = null,
     /**
-     * Artist lastFmUrl
+     * The artist sort name.
      */
-    val lastFmUrl: String? = null,
+    val sortName: String? = null,
     /**
-     * Artist smallImageUrl
+     * The list of all roles this artist has in the library.
      */
-    val smallImageUrl: String? = null,
+    val roles: List<String?>? = null,
     /**
-     * Artist mediumImageUrl
+     * Artist albums
      */
-    val mediumImageUrl: String? = null,
-    /**
-     * Artist largeImageUrl
-     */
-    val largeImageUrl: String? = null,
-    /**
-     * Similar artists
-     */
-    val similarArtist: List<Artist>? = null
+    val album: AlbumID3WithSongs? = null
 )

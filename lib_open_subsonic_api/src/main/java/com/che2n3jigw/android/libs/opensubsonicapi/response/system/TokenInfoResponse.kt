@@ -19,22 +19,20 @@
 // 作者: che2n3jigw
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
-// 创建时间： 12/19/25
+// 创建时间： 12/28/25
 package com.che2n3jigw.android.libs.opensubsonicapi.response.system
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
 import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
-/**
- * ping接口返回数据类型
- */
 @Serializable
-class PingResponse(
+data class TokenInfoResponse(
     override val status: String?,
     override val version: String?,
     override val type: String?,
     override val serverVersion: String?,
+    override val openSubsonic: Boolean?,
     override val error: Error?,
-    override val openSubsonic: Boolean?
+    val tokenInfo: TokenInfo? = null
 ) : ISubsonicResponse

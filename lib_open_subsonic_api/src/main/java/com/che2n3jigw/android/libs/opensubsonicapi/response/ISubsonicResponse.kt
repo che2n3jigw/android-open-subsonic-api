@@ -22,10 +22,16 @@
 // 创建时间： 12/19/25
 package com.che2n3jigw.android.libs.opensubsonicapi.response
 
+import kotlinx.serialization.Serializable
+
 /**
  * Subsonic接口基础数据类型
  */
 interface ISubsonicResponse {
     val status: String?
     val version: String?
+    val type: String?
+    val serverVersion: String?
+    val openSubsonic: Boolean?
+    val error: Error?
 }

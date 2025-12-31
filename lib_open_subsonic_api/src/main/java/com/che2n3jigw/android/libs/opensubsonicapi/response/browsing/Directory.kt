@@ -19,21 +19,44 @@
 // 作者: che2n3jigw
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
-// 创建时间： 12/27/25
+// 创建时间： 12/31/25
 package com.che2n3jigw.android.libs.opensubsonicapi.response.browsing
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.Songs
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Child
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SongsByGenreResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val openSubsonic: Boolean?,
-    override val error: Error?,
-    val songsByGenre: Songs? = null
-) : ISubsonicResponse
+data class Directory(
+    /**
+     * The id
+     */
+    val id: String? = null,
+    /**
+     * Parent item
+     */
+    val parent: String? = null,
+    /**
+     * The directory name
+     */
+    val name: String? = null,
+    /**
+     * Starred date
+     */
+    val starred: String? = null,
+    /**
+     * The user rating [1-5]
+     */
+    val userRating: Int? = null,
+    /**
+     * The average rating [1-5]
+     */
+    val averageRating: Int? = null,
+    /**
+     * The play count
+     */
+    val playCount: Int? = null,
+    /**
+     * The directory content
+     */
+    val child: List<Child>? = null
+)

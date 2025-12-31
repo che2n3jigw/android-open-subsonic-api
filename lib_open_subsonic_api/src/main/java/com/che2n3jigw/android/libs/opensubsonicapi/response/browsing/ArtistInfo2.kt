@@ -19,21 +19,43 @@
 // 作者: che2n3jigw
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
-// 创建时间： 12/27/25
+// 创建时间： 12/26/25
 package com.che2n3jigw.android.libs.opensubsonicapi.response.browsing
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.Songs
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.ArtistID3
 import kotlinx.serialization.Serializable
 
+/**
+ * Artist info.
+ */
 @Serializable
-data class SongsByGenreResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val openSubsonic: Boolean?,
-    override val error: Error?,
-    val songsByGenre: Songs? = null
-) : ISubsonicResponse
+data class ArtistInfo2(
+    /**
+     * Artist biography
+     */
+    val biography: String? = null,
+    /**
+     * Artist musicBrainzId
+     */
+    val musicBrainzId: String? = null,
+    /**
+     * Artist lastFmUrl
+     */
+    val lastFmUrl: String? = null,
+    /**
+     * Artist smallImageUrl
+     */
+    val smallImageUrl: String? = null,
+    /**
+     * Artist mediumImageUrl
+     */
+    val mediumImageUrl: String? = null,
+    /**
+     * Artist largeImageUrl
+     */
+    val largeImageUrl: String? = null,
+    /**
+     * Similar artists
+     */
+    val similarArtist: List<ArtistID3>? = null
+)
