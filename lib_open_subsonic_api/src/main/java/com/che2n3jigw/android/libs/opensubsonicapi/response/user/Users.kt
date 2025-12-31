@@ -20,20 +20,11 @@
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
 // 创建时间： 12/31/25
-package com.che2n3jigw.android.libs.opensubsonicapi.repository
+package com.che2n3jigw.android.libs.opensubsonicapi.response.user
 
-class Temp {
-//
-//
+import kotlinx.serialization.Serializable
 
-//
-
-
-//
-
-//
-
-
-//
-
-}
+@Serializable
+data class Users(
+    val user: List<User?>? = null
+)

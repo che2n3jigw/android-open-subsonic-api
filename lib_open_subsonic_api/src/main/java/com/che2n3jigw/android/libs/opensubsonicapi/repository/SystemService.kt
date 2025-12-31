@@ -23,9 +23,9 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.repository
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.SubsonicResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.system.GetLicenseResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.system.GetOpenSubsonicExtensionsResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.system.PingResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.system.TokenInfoResponse
 import retrofit2.http.GET
 
@@ -50,7 +50,7 @@ interface SystemService {
      * Test connectivity with the server.
      */
     @GET("/rest/ping")
-    suspend fun ping(): BaseResponse<PingResponse>?
+    suspend fun ping(): BaseResponse<SubsonicResponse>?
 
     /**
      * OpenSubsonic extension name apiKeyAuthentication (As returned by getOpenSubsonicExtensions).
