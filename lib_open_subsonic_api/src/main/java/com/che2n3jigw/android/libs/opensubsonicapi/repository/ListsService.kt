@@ -24,11 +24,11 @@ package com.che2n3jigw.android.libs.opensubsonicapi.repository
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.SongsByGenreResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.GetStarred2Response
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.GetAlbumList2Response
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.GetAlbumListResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.GetNowPlayingResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.GetRandomSongsResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.GetStarred2Response
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.StarredResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -45,8 +45,8 @@ interface ListsService {
     @GET("/rest/getAlbumList")
     suspend fun getAlbumList(
         @Query("type") type: String,
-        @Query("size") size: Int,
-        @Query("offset") offset: Int,
+        @Query("size") size: Int? = null,
+        @Query("offset") offset: Int? = null,
         @Query("fromYear") fromYear: Int? = null,
         @Query("toYear") toYear: Int? = null,
         @Query("genre") genre: String? = null,
@@ -59,8 +59,8 @@ interface ListsService {
     @GET("/rest/getAlbumList2")
     suspend fun getAlbumList2(
         @Query("type") type: String,
-        @Query("size") size: Int,
-        @Query("offset") offset: Int,
+        @Query("size") size: Int? = null,
+        @Query("offset") offset: Int? = null,
         @Query("fromYear") fromYear: Int? = null,
         @Query("toYear") toYear: Int? = null,
         @Query("genre") genre: String? = null,
@@ -78,7 +78,7 @@ interface ListsService {
      */
     @GET("/rest/getRandomSongs")
     suspend fun getRandomSongs(
-        @Query("size") size: Int,
+        @Query("size") size: Int? = null,
         @Query("genre") genre: String? = null,
         @Query("fromYear") fromYear: Int? = null,
         @Query("toYear") toYear: Int? = null,
@@ -91,7 +91,7 @@ interface ListsService {
     @GET("/rest/getSongsByGenre")
     suspend fun getSongsByGenre(
         @Query("genre") genre: String,
-        @Query("count") count: Int,
+        @Query("count") count: Int? = null,
         @Query("offset") offset: Int? = null,
         @Query("musicFolderId") musicFolderId: String? = null
     ): BaseResponse<SongsByGenreResponse>

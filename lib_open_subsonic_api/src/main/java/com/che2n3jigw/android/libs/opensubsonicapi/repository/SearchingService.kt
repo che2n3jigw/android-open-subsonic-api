@@ -39,12 +39,12 @@ interface SearchingService {
     @GET("/rest/search2")
     suspend fun search2(
         @Query("query") query: String,
-        @Query("artistCount") artistCount: Long,
-        @Query("artistOffset") artistOffset: Long,
-        @Query("albumCount") albumCount: Long,
-        @Query("songCount") songCount: Long,
-        @Query("songOffset") songOffset: Long,
-        @Query("musicFolderId") musicFolderId: String
+        @Query("artistCount") artistCount: Long? = null,
+        @Query("artistOffset") artistOffset: Long? = null,
+        @Query("albumCount") albumCount: Long? = null,
+        @Query("songCount") songCount: Long? = null,
+        @Query("songOffset") songOffset: Long? = null,
+        @Query("musicFolderId") musicFolderId: String? = null
     ): BaseResponse<SearchResult2Response>
 
     /**
@@ -56,11 +56,11 @@ interface SearchingService {
     @GET("/rest/search3")
     suspend fun search3(
         @Query("query") query: String,
-        @Query("artistCount") artistCount: Long,
-        @Query("artistOffset") artistOffset: Long,
-        @Query("albumCount") albumCount: Long,
-        @Query("songCount") songCount: Long,
-        @Query("songOffset") songOffset: Long,
-        @Query("musicFolderId") musicFolderId: String
+        @Query("artistCount") artistCount: Long? = null,
+        @Query("artistOffset") artistOffset: Long? = null,
+        @Query("albumCount") albumCount: Long? = null,
+        @Query("songCount") songCount: Long? = null,
+        @Query("songOffset") songOffset: Long? = null,
+        @Query("musicFolderId") musicFolderId: String? = null
     ): BaseResponse<SearchResult3Response>
 }

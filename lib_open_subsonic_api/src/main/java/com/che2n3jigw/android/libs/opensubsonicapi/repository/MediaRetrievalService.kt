@@ -53,7 +53,7 @@ interface MediaRetrievalService {
     @GET("/rest/getCaptions")
     suspend fun getCaptions(
         @Query("id") id: String,
-        @Query("format") format: String
+        @Query("format") format: String? = null
     ): String
 
     /**
@@ -62,7 +62,7 @@ interface MediaRetrievalService {
     @GET("/rest/getCoverArt")
     suspend fun getCoverArt(
         @Query("id") id: String,
-        @Query("size") size: Long
+        @Query("size") size: Long? = null
     ): String
 
     /**
@@ -70,8 +70,8 @@ interface MediaRetrievalService {
      */
     @GET("/rest/getLyrics")
     suspend fun getLyrics(
-        @Query("artist") artist: String,
-        @Query("title") title: Long
+        @Query("artist") artist: String? = null,
+        @Query("title") title: Long? = null
     ): BaseResponse<GetLyricsResponse>
 
     /**
@@ -89,10 +89,10 @@ interface MediaRetrievalService {
      * It’s supported by iOS and newer versions of Android. This method also supports adaptive bitrate streaming, see the bitRate parameter.
      */
     @GET("/rest/hls.m3u8")
-    suspend fun m3u8(
+    suspend fun hls(
         @Query("id") id: String,
-        @Query("bitRate") bitRate: Long,
-        @Query("audioTrack") audioTrack: String
+        @Query("bitRate") bitRate: Long? = null,
+        @Query("audioTrack") audioTrack: String? = null
     ): String
 
     /**
@@ -105,11 +105,11 @@ interface MediaRetrievalService {
     @GET("/rest/stream")
     suspend fun stream(
         @Query("id") id: String,
-        @Query("maxBitRate") maxBitRate: Long,
-        @Query("format") format: String,
-        @Query("timeOffset") timeOffset: Long,
-        @Query("size") size: String,
-        @Query("estimateContentLength") estimateContentLength: Boolean,
-        @Query("converted") converted: Boolean
+        @Query("maxBitRate") maxBitRate: Long? = null,
+        @Query("format") format: String? = null,
+        @Query("timeOffset") timeOffset: Long? = null,
+        @Query("size") size: String? = null,
+        @Query("estimateContentLength") estimateContentLength: Boolean? = null,
+        @Query("converted") converted: Boolean? = null
     ): String
 }

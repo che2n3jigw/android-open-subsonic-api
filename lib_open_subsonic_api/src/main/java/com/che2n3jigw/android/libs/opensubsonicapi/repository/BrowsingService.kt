@@ -76,8 +76,8 @@ interface BrowsingService {
     @GET("/rest/getArtistInfo")
     suspend fun getArtistInfo(
         @Query("id") id: String,
-        @Query("count") count: Int,
-        @Query("includeNotPresent") includeNotPresent: Boolean
+        @Query("count") count: Int? = null,
+        @Query("includeNotPresent") includeNotPresent: Boolean? = null
     ): BaseResponse<GetArtistInfoResponse>
 
     /**
@@ -86,8 +86,8 @@ interface BrowsingService {
     @GET("/rest/getArtistInfo2")
     suspend fun getArtistInfo2(
         @Query("id") id: String,
-        @Query("count") count: Int,
-        @Query("includeNotPresent") includeNotPresent: Boolean
+        @Query("count") count: Int? = null,
+        @Query("includeNotPresent") includeNotPresent: Boolean? = null
     ): BaseResponse<GetArtistInfo2Response>
 
     /**
@@ -131,7 +131,7 @@ interface BrowsingService {
     @GET("/rest/getSimilarSongs")
     suspend fun getSimilarSongs(
         @Query("id") id: String,
-        @Query("count") count: Int
+        @Query("count") count: Int? = null
     ): BaseResponse<GetSimilarSongsResponse>
 
     /**
@@ -140,7 +140,7 @@ interface BrowsingService {
     @GET("/rest/getSimilarSongs2")
     suspend fun getSimilarSongs2(
         @Query("id") id: String,
-        @Query("count") count: Int
+        @Query("count") count: Int? = null
     ): BaseResponse<GetSimilarSongs2Response>
 
     /**
@@ -155,7 +155,7 @@ interface BrowsingService {
     @GET("/rest/getTopSongs")
     suspend fun getTopSongs(
         @Query("id") id: String,
-        @Query("count") count: Int
+        @Query("count") count: Int? = null
     ): BaseResponse<GetTopSongsResponse>
 
     /**

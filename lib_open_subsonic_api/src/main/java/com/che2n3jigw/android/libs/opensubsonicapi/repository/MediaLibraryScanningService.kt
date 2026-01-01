@@ -42,6 +42,4 @@ interface MediaLibraryScanningService {
      */
     @GET("/rest/startScan")
     suspend fun startScan(): BaseResponse<StartScanStatusResponse>
-
-
 }

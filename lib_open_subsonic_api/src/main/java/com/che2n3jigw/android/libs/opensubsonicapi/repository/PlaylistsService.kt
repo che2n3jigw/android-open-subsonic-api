@@ -39,9 +39,9 @@ interface PlaylistsService {
      */
     @GET("/rest/createPlaylist")
     suspend fun createPlaylist(
-        @Query("playlistId") playlistId: String,
-        @Query("name") name: String,
-        @Query("songId") songId: List<String>
+        @Query("playlistId") playlistId: String? = null,
+        @Query("name") name: String? = null,
+        @Query("songId") songId: List<String>? = null
     ): BaseResponse<CreatePlaylistResponse>
 
     /**
@@ -65,7 +65,7 @@ interface PlaylistsService {
      */
     @GET("/rest/getPlaylists")
     suspend fun getPlaylists(
-        @Query("username") username: String
+        @Query("username") username: String? = null
     ): BaseResponse<GetPlaylistsResponse>
 
     /**
@@ -74,10 +74,10 @@ interface PlaylistsService {
     @GET("/rest/updatePlaylist")
     suspend fun updatePlaylist(
         @Query("playlistId") playlistId: String,
-        @Query("name") name: String,
-        @Query("comment") comment: String,
-        @Query("public") public: Boolean,
-        @Query("songIdToAdd") songIdToAdd: List<String>,
-        @Query("songIndexToRemove") songIndexToRemove: List<Int>
+        @Query("name") name: String? = null,
+        @Query("comment") comment: String? = null,
+        @Query("public") public: Boolean? = null,
+        @Query("songIdToAdd") songIdToAdd: List<String>? = null,
+        @Query("songIndexToRemove") songIndexToRemove: List<Int>? = null
     ): BaseResponse<SubsonicResponse>
 }
