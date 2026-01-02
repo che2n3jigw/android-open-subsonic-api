@@ -23,9 +23,9 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.response.user
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GetUserResponse(
     val user: User? = null
 ) : BaseSubsonicResponse()
