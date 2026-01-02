@@ -66,5 +66,5 @@ data class ArtistWithAlbumsID3(
     /**
      * Artist albums
      */
-    val album: AlbumID3WithSongs? = null
+    val album: List<AlbumID3WithSongs>? = null
 )

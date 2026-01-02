@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 che2n3jigw.
+ * Copyright (c) 2026 che2n3jigw.
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
@@ -154,7 +154,7 @@ interface BrowsingService {
      */
     @GET("/rest/getTopSongs")
     suspend fun getTopSongs(
-        @Query("id") id: String,
+        @Query("artist") artist: String,
         @Query("count") count: Int? = null
     ): BaseResponse<GetTopSongsResponse>
 

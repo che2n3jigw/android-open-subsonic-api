@@ -58,9 +58,7 @@ class BrowsingRepository(
         val result = RequestUtils.safeApiCall { service.getAlbum(id) }
         return when (result) {
             // 请求成功
-            is RequestResult.Success -> {
-                result.data.response?.album
-            }
+            is RequestResult.Success -> result.data.response?.album
             // 请求失败
             else -> null
         }
@@ -202,9 +200,7 @@ class BrowsingRepository(
      * @return 音乐目录中所有文件的列表
      */
     suspend fun getMusicDirectory(id: String): Directory? {
-        val result = RequestUtils.safeApiCall {
-            service.getMusicDirectory(id)
-        }
+        val result = RequestUtils.safeApiCall { service.getMusicDirectory(id) }
         return when (result) {
             // 请求成功
             is RequestResult.Success -> result.data.response?.directory
