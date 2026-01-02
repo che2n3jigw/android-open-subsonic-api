@@ -31,6 +31,7 @@ import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Child
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.NowPlayingEntry
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.Starred
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.Starred2
+import com.che2n3jigw.android.libs.opensubsonicapi.service.ListsService
 
 class ListsRepository(
     private val baseUrl: String,

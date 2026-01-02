@@ -38,6 +38,7 @@ import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Directory
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Genre
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Indexes
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.MusicFolder
+import com.che2n3jigw.android.libs.opensubsonicapi.service.BrowsingService
 
 /**
  * Subsonic Browsing API 远程库

@@ -26,6 +26,7 @@ import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.system.License
 import com.che2n3jigw.android.libs.opensubsonicapi.response.system.OpenSubsonicExtensions
 import com.che2n3jigw.android.libs.opensubsonicapi.response.system.TokenInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.service.SystemService
 
 /**
  * Subsonic System API 远程库
