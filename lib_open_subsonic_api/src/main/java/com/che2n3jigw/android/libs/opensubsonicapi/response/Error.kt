@@ -27,5 +27,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Error(
     val code: Int? = null,
-    val message: String? = null
+    val message: String? = null,
+    val helpUrl: String? = null
 )
