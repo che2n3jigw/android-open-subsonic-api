@@ -22,15 +22,8 @@
 // 创建时间： 12/31/25
 package com.che2n3jigw.android.libs.opensubsonicapi.response.user
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 
 data class GetUsersResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val openSubsonic: Boolean?,
-    override val error: Error?,
     val users: Users? = null
-) : ISubsonicResponse
+) : BaseSubsonicResponse()

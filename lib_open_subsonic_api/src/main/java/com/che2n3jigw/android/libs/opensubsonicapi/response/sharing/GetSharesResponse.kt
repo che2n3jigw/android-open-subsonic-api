@@ -22,17 +22,10 @@
 // 创建时间： 1/1/26
 package com.che2n3jigw.android.libs.opensubsonicapi.response.sharing
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetSharesResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val openSubsonic: Boolean?,
-    override val error: Error?,
     val shares: Shares? = null
-) : ISubsonicResponse
+) : BaseSubsonicResponse()

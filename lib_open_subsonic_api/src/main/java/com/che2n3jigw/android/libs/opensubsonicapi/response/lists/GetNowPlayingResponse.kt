@@ -18,17 +18,10 @@
 
 package com.che2n3jigw.android.libs.opensubsonicapi.response.lists
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetNowPlayingResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val openSubsonic: Boolean?,
-    override val error: Error?,
     val nowPlaying: NowPlaying? = null
-) : ISubsonicResponse
+) : BaseSubsonicResponse()

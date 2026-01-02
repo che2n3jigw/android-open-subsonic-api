@@ -22,17 +22,12 @@
 // 创建时间： 12/31/25
 package com.che2n3jigw.android.libs.opensubsonicapi.response.searching
 
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
 import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class SearchResult3Response(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val openSubsonic: Boolean?,
-    override val error: Error?,
     val searchResult3: SearchResult3? = null
-) : ISubsonicResponse
+) : BaseSubsonicResponse()

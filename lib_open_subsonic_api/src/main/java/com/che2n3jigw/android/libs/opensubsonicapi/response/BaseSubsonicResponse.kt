@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 che2n3jigw.
+ * Copyright (c) 2026 che2n3jigw.
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,18 +16,20 @@
  *
  */
 
-package com.che2n3jigw.android.libs.opensubsonicapi.response.common
+// 作者: che2n3jigw
+// 邮箱: che2n3jigw@163.com
+// 博客: che2n3jigw.github.io
+// 创建时间： 1/2/26
+package com.che2n3jigw.android.libs.opensubsonicapi.response
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SubsonicResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val openSubsonic: Boolean?,
-    override val error: Error?
-) : ISubsonicResponse
+open class BaseSubsonicResponse(
+    val status: String? = null,
+    val version: String? = null,
+    val type: String? = null,
+    val serverVersion: String? = null,
+    val openSubsonic: Boolean? = null,
+    val error: Error? = null
+)

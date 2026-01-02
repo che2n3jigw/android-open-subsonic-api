@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 che2n3jigw.
+ * Copyright (c) 2026 che2n3jigw.
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.service
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.SubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.system.GetLicenseResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.system.GetOpenSubsonicExtensionsResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.system.TokenInfoResponse
@@ -50,7 +50,7 @@ interface SystemService {
      * Test connectivity with the server.
      */
     @GET("/rest/ping")
-    suspend fun ping(): BaseResponse<SubsonicResponse>?
+    suspend fun ping(): BaseResponse<BaseSubsonicResponse>?
 
     /**
      * OpenSubsonic extension name apiKeyAuthentication (As returned by getOpenSubsonicExtensions).

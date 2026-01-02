@@ -23,7 +23,7 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.service
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.SubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.sharing.CreateSharesResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.sharing.GetSharesResponse
 import retrofit2.http.GET
@@ -49,7 +49,7 @@ interface SharingService {
      * Deletes an existing share
      */
     @GET("/rest/deleteShare")
-    suspend fun deleteShare(@Query("id") id: String): BaseResponse<SubsonicResponse>
+    suspend fun deleteShare(@Query("id") id: String): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Returns information about shared media this user is allowed to manage. Takes no extra parameters.
@@ -65,6 +65,6 @@ interface SharingService {
         @Query("id") id: String,
         @Query("description") description: String? = null,
         @Query("expires") expires: Int? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 
 }

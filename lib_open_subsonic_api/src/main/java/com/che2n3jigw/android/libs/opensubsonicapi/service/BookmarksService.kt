@@ -23,10 +23,10 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.service
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.bookmarks.GetBookmarksResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.bookmarks.GetPlayQueueByIndexSuccessResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.bookmarks.GetPlayQueueResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.SubsonicResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -42,13 +42,13 @@ interface BookmarksService {
         @Query("id") id: String,
         @Query("position") position: Long,
         @Query("comment") comment: String? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Deletes a bookmark (a position within a media file). Bookmarks are personal and not visible to other users.
      */
     @GET("/rest/deleteBookmark")
-    suspend fun deleteBookmark(@Query("id") id: String): BaseResponse<SubsonicResponse>
+    suspend fun deleteBookmark(@Query("id") id: String): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Returns all bookmarks for this user. A bookmark is a position within a certain media file.
@@ -82,7 +82,7 @@ interface BookmarksService {
         @Query("id") id: String? = null,
         @Query("current") current: String? = null,
         @Query("position") position: Long? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Saves the state of the play queue for this user.
@@ -94,6 +94,6 @@ interface BookmarksService {
         @Query("id") id: String? = null,
         @Query("currentIndex") currentIndex: Long? = null,
         @Query("position") position: Long? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 
 }

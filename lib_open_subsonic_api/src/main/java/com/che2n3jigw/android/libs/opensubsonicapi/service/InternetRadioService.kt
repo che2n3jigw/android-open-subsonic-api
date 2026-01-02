@@ -23,7 +23,7 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.service
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.SubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.radio.GetInternetRadioStationsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -41,13 +41,13 @@ interface InternetRadioService {
         @Query("streamUrl") streamUrl: String,
         @Query("name") name: String,
         @Query("homepageUrl") homepageUrl: String? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Deletes an existing internet radio station. Only users with admin privileges are allowed to call this method.
      */
     @GET("/rest/deleteInternetRadioStation")
-    suspend fun deleteInternetRadioStation(@Query("id") id: String): BaseResponse<SubsonicResponse>
+    suspend fun deleteInternetRadioStation(@Query("id") id: String): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Returns all internet radio stations. Takes no extra parameters.
@@ -64,5 +64,5 @@ interface InternetRadioService {
         @Query("streamUrl") streamUrl: String,
         @Query("name") name: String,
         @Query("homepageUrl") homepageUrl: String? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 }

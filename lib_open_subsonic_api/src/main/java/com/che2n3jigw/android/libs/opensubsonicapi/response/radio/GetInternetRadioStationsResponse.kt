@@ -22,17 +22,10 @@
 // 创建时间： 1/2/26
 package com.che2n3jigw.android.libs.opensubsonicapi.response.radio
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class GetInternetRadioStationsResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val openSubsonic: Boolean?,
-    override val error: Error?,
     val internetRadioStations: InternetRadioStations? = null
-) : ISubsonicResponse
+) : BaseSubsonicResponse()

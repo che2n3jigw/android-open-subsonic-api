@@ -23,7 +23,7 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.service
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.SubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.podcast.GetNewestPodcastsResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.podcast.GetPodcastEpisodeResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.podcast.GetPodcastsResponse
@@ -38,25 +38,25 @@ interface PodcastService {
      * Adds a new Podcast channel. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).
      */
     @GET("/rest/createPodcastChannel")
-    suspend fun createPodcastChannel(@Query("url") url: String): BaseResponse<SubsonicResponse>
+    suspend fun createPodcastChannel(@Query("url") url: String): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Deletes a Podcast channel. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).
      */
     @GET("/rest/deletePodcastChannel")
-    suspend fun deletePodcastChannel(@Query("id") id: String): BaseResponse<SubsonicResponse>
+    suspend fun deletePodcastChannel(@Query("id") id: String): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Deletes a Podcast episode. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).
      */
     @GET("/rest/deletePodcastEpisode")
-    suspend fun deletePodcastEpisode(@Query("id") id: String): BaseResponse<SubsonicResponse>
+    suspend fun deletePodcastEpisode(@Query("id") id: String): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Request the server to start downloading a given Podcast episode. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).
      */
     @GET("/rest/downloadPodcastEpisode")
-    suspend fun downloadPodcastEpisode(@Query("id") id: String): BaseResponse<SubsonicResponse>
+    suspend fun downloadPodcastEpisode(@Query("id") id: String): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Returns the most recently published Podcast episodes.
@@ -85,6 +85,6 @@ interface PodcastService {
      * Requests the server to check for new Podcast episodes. Note: The user must be authorized for Podcast administration (see Settings > Users > User is allowed to administrate Podcasts).
      */
     @GET("/rest/refreshPodcasts")
-    suspend fun refreshPodcasts(): BaseResponse<SubsonicResponse>
+    suspend fun refreshPodcasts(): BaseResponse<BaseSubsonicResponse>
 
 }

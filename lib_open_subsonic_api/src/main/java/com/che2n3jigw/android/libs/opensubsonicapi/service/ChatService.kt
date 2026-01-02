@@ -23,8 +23,8 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.service
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.chat.GetChatMessagesResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.SubsonicResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -33,7 +33,7 @@ interface ChatService {
      * Adds a message to the chat log.
      */
     @GET("/rest/addChatMessage")
-    suspend fun addChatMessage(@Query("message") message: String): BaseResponse<SubsonicResponse>
+    suspend fun addChatMessage(@Query("message") message: String): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Returns the current visible (non-expired) chat messages.

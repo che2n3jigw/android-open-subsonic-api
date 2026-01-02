@@ -22,17 +22,10 @@
 // 创建时间： 12/31/25
 package com.che2n3jigw.android.libs.opensubsonicapi.response.scanning
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class StartScanStatusResponse(
-    override val status: String?,
-    override val version: String?,
-    override val type: String?,
-    override val serverVersion: String?,
-    override val openSubsonic: Boolean?,
-    override val error: Error?,
     val scanStatus: ScanStatus? = null
-) : ISubsonicResponse
+) : BaseSubsonicResponse()

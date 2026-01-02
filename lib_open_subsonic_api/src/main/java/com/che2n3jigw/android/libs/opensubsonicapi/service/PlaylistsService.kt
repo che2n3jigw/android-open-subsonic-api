@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 che2n3jigw.
+ * Copyright (c) 2026 che2n3jigw.
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.service
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.SubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.playlists.CreatePlaylistResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.playlists.GetPlaylistResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.playlists.GetPlaylistsResponse
@@ -50,7 +50,7 @@ interface PlaylistsService {
     @GET("/rest/deletePlaylist")
     suspend fun deletePlaylist(
         @Query("id") id: String
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Returns a listing of files in a saved playlist.
@@ -79,5 +79,5 @@ interface PlaylistsService {
         @Query("public") public: Boolean? = null,
         @Query("songIdToAdd") songIdToAdd: List<String>? = null,
         @Query("songIndexToRemove") songIndexToRemove: List<Int>? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 }

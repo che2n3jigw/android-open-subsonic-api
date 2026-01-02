@@ -23,7 +23,7 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.service
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.SubsonicResponse
+import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -45,7 +45,7 @@ interface MediaAnnotationService {
         @Query("id") id: String,
         @Query("time") time: Long? = null,
         @Query("submission") submission: Boolean? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Sets the rating for a music file.
@@ -54,7 +54,7 @@ interface MediaAnnotationService {
     suspend fun setRating(
         @Query("id") id: String,
         @Query("rating") rating: Long
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Attaches a star to a song, album or artist.
@@ -64,7 +64,7 @@ interface MediaAnnotationService {
         @Query("id") id: List<String>? = null,
         @Query("albumId") albumId: List<String>? = null,
         @Query("artistId") artistId: List<String>? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 
     /**
      * Removes a star to a song, album or artist.
@@ -74,5 +74,5 @@ interface MediaAnnotationService {
         @Query("id") id: List<String>? = null,
         @Query("albumId") albumId: List<String>? = null,
         @Query("artistId") artistId: List<String>? = null
-    ): BaseResponse<SubsonicResponse>
+    ): BaseResponse<BaseSubsonicResponse>
 }
