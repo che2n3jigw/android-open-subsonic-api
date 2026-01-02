@@ -22,13 +22,18 @@
 // 创建时间： 12/20/25
 package com.che2n3jigw.android.libs.opensubsonicapi.repository
 
+import com.che2n3jigw.android.libs.net.RequestClient
 import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.interceptor.AuthenticationInterceptor
 
 /**
  * Subsonic System API 远程库基类
  */
-open class BaseRepository(autoInfo: AutoInfo) {
+open class BaseRepository(
+    protected val baseUrl: String,
+    autoInfo: AutoInfo,
+    protected val enableLogging: Boolean = true
+) {
 
     companion object {
         const val STATUS_OK = "ok"
@@ -36,4 +41,10 @@ open class BaseRepository(autoInfo: AutoInfo) {
 
     protected val authInterceptor = AuthenticationInterceptor(autoInfo)
 
+    protected inline fun <reified T> service(): T =
+        RequestClient.createService(
+            baseUrl = baseUrl,
+            enableLogging = enableLogging,
+            interceptors = listOf(authInterceptor)
+        )
 }

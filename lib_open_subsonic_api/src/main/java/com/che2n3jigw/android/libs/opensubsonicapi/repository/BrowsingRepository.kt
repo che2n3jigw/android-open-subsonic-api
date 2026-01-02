@@ -22,38 +22,33 @@
 // 创建时间： 12/20/25
 package com.che2n3jigw.android.libs.opensubsonicapi.repository
 
-import com.che2n3jigw.android.libs.net.RequestClient
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.opensubsonicapi.UnverifiedApi
 import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.AlbumID3WithSongs
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.AlbumInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistInfo2
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistWithAlbumsID3
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistsID3
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Child
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Directory
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Genre
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.Indexes
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.MusicFolder
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.AlbumID3WithSongs
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Child
 import com.che2n3jigw.android.libs.opensubsonicapi.service.BrowsingService
 
 /**
  * Subsonic Browsing API 远程库
  */
 class BrowsingRepository(
-    private val baseUrl: String,
+    baseUrl: String,
     authInfo: AutoInfo,
-    private val enableLogging: Boolean = true
-) : BaseRepository(authInfo) {
+    enableLogging: Boolean = true
+) : BaseRepository(baseUrl, authInfo, enableLogging) {
 
-    private val service = RequestClient.createService<BrowsingService>(
-        baseUrl = baseUrl,
-        enableLogging = enableLogging,
-        interceptors = listOf(authInterceptor)
-    )
+    private val service: BrowsingService = service()
 
     /**
      * 获取专辑的详细信息，包括歌曲列表。此方法根据 ID3 标签对音乐进行分类。

@@ -18,7 +18,6 @@
 
 package com.che2n3jigw.android.libs.opensubsonicapi.repository
 
-import com.che2n3jigw.android.libs.net.RequestClient
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.opensubsonicapi.UnverifiedApi
@@ -32,16 +31,12 @@ import com.che2n3jigw.android.libs.opensubsonicapi.service.SystemService
  * Subsonic System API 远程库
  */
 class SystemRepository(
-    private val baseUrl: String,
+    baseUrl: String,
     authInfo: AutoInfo,
-    private val enableLogging: Boolean = true
-) : BaseRepository(authInfo) {
+    enableLogging: Boolean = true
+) : BaseRepository(baseUrl, authInfo, enableLogging) {
 
-    private val service = RequestClient.createService<SystemService>(
-        baseUrl = baseUrl,
-        enableLogging = enableLogging,
-        interceptors = listOf(authInterceptor)
-    )
+    private val service: SystemService = service()
 
     /**
      * 获取软件许可详情

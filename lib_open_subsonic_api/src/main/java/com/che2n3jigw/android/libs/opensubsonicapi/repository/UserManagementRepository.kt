@@ -22,9 +22,18 @@
 // 创建时间： 12/31/25
 package com.che2n3jigw.android.libs.opensubsonicapi.repository
 
+import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.service.UserManagementService
+
 /**
  * User management repository.
  */
-class UserManagementRepository {
+class UserManagementRepository(
+    baseUrl: String,
+    authInfo: AutoInfo,
+    enableLogging: Boolean = true
+) : BaseRepository(baseUrl, authInfo, enableLogging) {
+
+    private val service: UserManagementService = service()
 
 }

@@ -22,7 +22,6 @@
 // 创建时间： 12/31/25
 package com.che2n3jigw.android.libs.opensubsonicapi.repository
 
-import com.che2n3jigw.android.libs.net.RequestClient
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.opensubsonicapi.bean.AlbumListType
@@ -34,16 +33,12 @@ import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.Starred2
 import com.che2n3jigw.android.libs.opensubsonicapi.service.ListsService
 
 class ListsRepository(
-    private val baseUrl: String,
+    baseUrl: String,
     authInfo: AutoInfo,
-    private val enableLogging: Boolean = true
-) : BaseRepository(authInfo) {
+    enableLogging: Boolean = true
+) : BaseRepository(baseUrl, authInfo, enableLogging) {
 
-    private val service = RequestClient.createService<ListsService>(
-        baseUrl = baseUrl,
-        enableLogging = enableLogging,
-        interceptors = listOf(authInterceptor)
-    )
+    private val service: ListsService = service()
 
     /**
      * 获取专辑列表
