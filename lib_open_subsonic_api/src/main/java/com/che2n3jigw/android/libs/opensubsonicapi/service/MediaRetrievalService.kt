@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 che2n3jigw.
+ * Copyright (c) 2026 che2n3jigw.
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,11 @@ package com.che2n3jigw.android.libs.opensubsonicapi.service
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.GetLyricsBySongIdResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.GetLyricsResponse
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import retrofit2.http.Streaming
 
 /**
  * open subsonic media retrieval api
@@ -38,13 +41,15 @@ interface MediaRetrievalService {
      * but this method returns the original media data without transcoding or downsampling.
      */
     @GET("/rest/download")
-    suspend fun download(@Query("id") id: String): String
+    @Streaming
+    suspend fun download(@Query("id") id: String): Response<ResponseBody>
 
     /**
      * Returns the avatar (personal image) for a user.
      */
     @GET("/rest/getAvatar")
-    suspend fun getAvatar(@Query("username") username: String): String
+    @Streaming
+    suspend fun getAvatar(@Query("username") username: String): Response<ResponseBody>
 
     /**
      * Returns captions (subtitles) for a video.
@@ -54,16 +59,17 @@ interface MediaRetrievalService {
     suspend fun getCaptions(
         @Query("id") id: String,
         @Query("format") format: String? = null
-    ): String
+    ): Response<ResponseBody>
 
     /**
      * Returns a cover art image.
      */
     @GET("/rest/getCoverArt")
+    @Streaming
     suspend fun getCoverArt(
         @Query("id") id: String,
         @Query("size") size: Long? = null
-    ): String
+    ): Response<ResponseBody>
 
     /**
      * Searches for and returns lyrics for a given song.
@@ -71,7 +77,7 @@ interface MediaRetrievalService {
     @GET("/rest/getLyrics")
     suspend fun getLyrics(
         @Query("artist") artist: String? = null,
-        @Query("title") title: Long? = null
+        @Query("title") title: String? = null
     ): BaseResponse<GetLyricsResponse>
 
     /**
@@ -93,7 +99,7 @@ interface MediaRetrievalService {
         @Query("id") id: String,
         @Query("bitRate") bitRate: Long? = null,
         @Query("audioTrack") audioTrack: String? = null
-    ): String
+    ): Response<ResponseBody>
 
     /**
      * Streams a given media file.
@@ -111,5 +117,5 @@ interface MediaRetrievalService {
         @Query("size") size: String? = null,
         @Query("estimateContentLength") estimateContentLength: Boolean? = null,
         @Query("converted") converted: Boolean? = null
-    ): String
+    ): Response<ResponseBody>
 }

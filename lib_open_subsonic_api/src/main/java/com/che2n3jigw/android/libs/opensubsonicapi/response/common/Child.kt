@@ -18,10 +18,6 @@
 
 package com.che2n3jigw.android.libs.opensubsonicapi.response.common
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.ArtistID3
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Contributor
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.ItemGenre
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.ReplayGain
 import kotlinx.serialization.Serializable
 
 /**

@@ -46,4 +46,8 @@ dependencies {
     implementation(libs.converter.kotlinx.serialization)
     // kotlin序列化
     implementation(libs.kotlinx.serialization.json)
+    // 日志拦截器
+    implementation(libs.logging.interceptor)
+    // 协程
+    implementation(libs.kotlinx.coroutines.core)
 }
