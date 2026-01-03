@@ -53,7 +53,7 @@ interface MediaAnnotationService {
     @GET("/rest/setRating")
     suspend fun setRating(
         @Query("id") id: String,
-        @Query("rating") rating: Long
+        @Query("rating") rating: Int
     ): BaseResponse<BaseSubsonicResponse>
 
     /**
