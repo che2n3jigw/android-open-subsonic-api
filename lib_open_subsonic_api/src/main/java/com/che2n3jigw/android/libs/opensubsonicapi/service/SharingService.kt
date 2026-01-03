@@ -64,7 +64,7 @@ interface SharingService {
     suspend fun updateShare(
         @Query("id") id: String,
         @Query("description") description: String? = null,
-        @Query("expires") expires: Int? = null
+        @Query("expires") expires: Long? = null
     ): BaseResponse<BaseSubsonicResponse>
 
 }
