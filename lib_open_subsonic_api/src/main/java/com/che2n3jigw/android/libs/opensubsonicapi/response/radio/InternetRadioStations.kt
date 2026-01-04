@@ -26,5 +26,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class InternetRadioStations(
-    val internetRadioStation: List<InternetRadioStation>? = null
+    val internetRadioStation: List<InternetRadioStation?>? = null
 )
