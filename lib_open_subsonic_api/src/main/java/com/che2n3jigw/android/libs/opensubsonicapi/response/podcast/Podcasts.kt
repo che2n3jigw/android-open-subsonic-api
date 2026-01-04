@@ -22,5 +22,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Podcasts(
-    val channel: List<PodcastChannel>? = null
+    val channel: List<PodcastChannel?>? = null
 )
