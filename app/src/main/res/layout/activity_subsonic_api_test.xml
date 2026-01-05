@@ -16,15 +16,15 @@
   ~
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
 
     <Button
-        android:id="@+id/btn_ping"
+        android:id="@+id/btn_api_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ping" />
-</LinearLayout>
+        android:text="api test" />
+
+</FrameLayout>
