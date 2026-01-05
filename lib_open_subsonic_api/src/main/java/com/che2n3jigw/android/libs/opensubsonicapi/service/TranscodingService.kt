@@ -23,6 +23,8 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.service
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.transcoding.ClientInfo
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -50,6 +52,6 @@ interface TranscodingService {
         @Query("mediaId") mediaId: String,
         @Query("mediaType") mediaType: String,
         @Query("offset") offset: Long? = null,
-        @Query("transcodeParams ") transcodeParams: String? = null
-    ): String
+        @Query("transcodeParams ") transcodeParams: String
+    ): Response<ResponseBody>
 }
