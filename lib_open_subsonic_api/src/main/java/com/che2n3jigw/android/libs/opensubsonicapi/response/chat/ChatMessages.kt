@@ -23,8 +23,6 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.response.chat
 
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseSubsonicResponse
-import com.che2n3jigw.android.libs.opensubsonicapi.response.Error
-import com.che2n3jigw.android.libs.opensubsonicapi.response.ISubsonicResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
