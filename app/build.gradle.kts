@@ -6,6 +6,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        create("release") {
+            storeFile = file("jks/test.jks")
+            storePassword = "123456"
+            keyAlias = "123456"
+            keyPassword = "123456"
+        }
+    }
     namespace = "com.che2n3jigw.android.opensubsonicapi"
     compileSdk {
         version = release(36)
@@ -21,11 +29,13 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
