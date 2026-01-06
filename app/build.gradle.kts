@@ -52,5 +52,6 @@ android {
 
 dependencies {
     implementation(libs.appcompat)
-    implementation(project(":lib_open_subsonic_api"))
+    implementation(libs.android.open.subsonic.api)
+//    implementation(project(":lib_open_subsonic_api"))
 }
