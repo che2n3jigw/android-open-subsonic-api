@@ -9,7 +9,7 @@ retrofit = "3.0.0"
 # retrofit 封装库(根据实际版本)
 androidNet = "1.0.0"
 # open subsonic api库(根据实际版本)
-openSubsonicApi = "1.0.0"
+openSubsonicApi = "1.0.1"
 appcompat = "1.7.1"
 # okhttp 拦截器依赖版本
 okhttp = "5.3.2"
