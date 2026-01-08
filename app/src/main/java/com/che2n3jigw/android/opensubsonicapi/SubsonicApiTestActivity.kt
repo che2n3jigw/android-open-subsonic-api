@@ -23,7 +23,6 @@
 package com.che2n3jigw.android.opensubsonicapi
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -45,148 +44,148 @@ class SubsonicApiTestActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn_api_test).setOnClickListener {
             lifecycleScope.launch {
                 // <editor-fold defaultState="collapsed" desc="System">
-//                val repository = SystemRepository(baseUrl, authInfo)
-//                val response = repository.getLicense()
-//                val response = repository.getOpenSubsonicExtensions()
-//                val response = repository.ping()
+//                val source = SystemDataSource(baseUrl, authInfo)
+//                val response = source.getLicense()
+//                val response = source.getOpenSubsonicExtensions()
+//                val response = source.ping()
 //                @OptIn(UnverifiedApi::class)
-//                val response = repository.tokenInfo()
+//                val response = source.tokenInfo()
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="User Management">
-//                val repository = UserManagementRepository(baseUrl, authInfo)
+//                val source = UserManagementDataSource(baseUrl, authInfo)
 //                @OptIn(UnverifiedApi::class)
-//                val response = repository.changePassword("直播", "11111")
+//                val response = source.changePassword("直播", "11111")
 //                @OptIn(UnverifiedApi::class)
-//                val response = repository.createUser("test", "123456", "123@qq.com")
+//                val response = source.createUser("test", "123456", "123@qq.com")
 //                @OptIn(UnverifiedApi::class)
-//                val response = repository.deleteUser("直播")
-//                val response = repository.getUser("直播")
-//                val response = repository.getUsers()
+//                val response = source.deleteUser("直播")
+//                val response = source.getUser("直播")
+//                val response = source.getUsers()
 //                @OptIn(UnverifiedApi::class)
-//                val response = repository.updateUser("直播", "11111")
+//                val response = source.updateUser("直播", "11111")
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="media library scanning">
-//                val repository = MediaLibraryScanningRepository(baseUrl, authInfo)
-//                val response = repository.getScanStatus()
-//                val response = repository.startScan()
+//                val source = MediaLibraryScanningDataSource(baseUrl, authInfo)
+//                val response = source.getScanStatus()
+//                val response = source.startScan()
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="searching">
-//                val repository = SearchingRepository(baseUrl, authInfo)
-//                val response = repository.search2("LATATA")
-//                val response = repository.search3("LATATA")
+//                val source = SearchingDataSource(baseUrl, authInfo)
+//                val response = source.search2("LATATA")
+//                val response = source.search3("LATATA")
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="browsing">
-//                val repository = BrowsingRepository(baseUrl, authInfo)
-//                val response = repository.getAlbum(albumId)
-//                val response = repository.getAlbumInfo(albumId)
-//                val response = repository.getAlbumInfo2(albumId)
-
-//                val response = repository.getArtist(artistId)
-//                val response = repository.getArtistInfo(artistId)
-//                val response = repository.getArtistInfo2(artistId)
-//                val response = repository.getArtists()
-
-//                val response = repository.getGenres()
-//                val response = repository.getIndexes()
-//                val response = repository.getMusicDirectory(artistId)
-//                val response = repository.getMusicFolders()
-
-//                val response = repository.getSimilarSongs(songId)
-//                val response = repository.getSimilarSongs2(songId)
-
-//                val response = repository.getSong(songId)
-//                val response = repository.getTopSongs("周杰伦")
-
+//                val source = BrowsingDataSource(baseUrl, authInfo)
+//                val response = source.getAlbum(albumId)
+//                val response = source.getAlbumInfo(albumId)
+//                val response = source.getAlbumInfo2(albumId)
+//
+//                val response = source.getArtist(artistId)
+//                val response = source.getArtistInfo(artistId)
+//                val response = source.getArtistInfo2(artistId)
+//                val response = source.getArtists()
+//
+//                val response = source.getGenres()
+//                val response = source.getIndexes()
+//                val response = source.getMusicDirectory(artistId)
+//                val response = source.getMusicFolders()
+//
+//                val response = source.getSimilarSongs(songId)
+//                val response = source.getSimilarSongs2(songId)
+//
+//                val response = source.getSong(songId)
+//                val response = source.getTopSongs("周杰伦")
+//
 //                @OptIn(UnverifiedApi::class)
-//                val response =repository.getVideos()
-//                val response = repository.getVideoInfo()
+//                val response =source.getVideos()
+//                val response = source.getVideoInfo()
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="Playlists">
-//                val repository = PlaylistsRepository(baseUrl, authInfo)
-//                val response = repository.createPlaylist(name = "测试")
-//                val response = repository.deletePlaylist("6bf65806-a916-44b0-b0c3-e4649f4234fa")
-//                val response = repository.getPlaylist("9f5ff9e6-c823-405a-8a6a-6011b51aac1d")
-//                val response = repository.getPlaylists()
+//                val source = PlaylistsDataSource(baseUrl, authInfo)
+//                val response = source.createPlaylist(name = "测试")
+//                val response = source.deletePlaylist("6bf65806-a916-44b0-b0c3-e4649f4234fa")
+//                val response = source.getPlaylist("9f5ff9e6-c823-405a-8a6a-6011b51aac1d")
+//                val response = source.getPlaylists()
 //                val response =
-//                    repository.updatePlaylist("9f5ff9e6-c823-405a-8a6a-6011b51aac1d", "直播1")
+//                    source.updatePlaylist("9f5ff9e6-c823-405a-8a6a-6011b51aac1d", "直播1")
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="lists">
-//                val repository = ListsRepository(baseUrl, authInfo)
-//                val response = repository.getAlbumList(AlbumListType.Random)
-//                val response = repository.getAlbumList2(AlbumListType.Random)
-//                val response = repository.getNowPlaying()
-//                val response = repository.getRandomSongs()
-//                val response = repository.getSongsByGenre("Pop")
-//                val response = repository.getStarred()
-//                val response = repository.getStarred2()
+//                val source = ListsDataSource(baseUrl, authInfo)
+//                val response = source.getAlbumList(AlbumListType.Random)
+//                val response = source.getAlbumList2(AlbumListType.Random)
+//                val response = source.getNowPlaying()
+//                val response = source.getRandomSongs()
+//                val response = source.getSongsByGenre("Pop")
+//                val response = source.getStarred()
+//                val response = source.getStarred2()
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="Media Retrieval">
-//                val repository = MediaRetrievalRepository(baseUrl, authInfo)
-//                val response = repository.download("ada350bb42c91b863c0beef6e203a7d4")
+//                val source = MediaRetrievalDataSource(baseUrl, authInfo)
+//                val response = source.download("ada350bb42c91b863c0beef6e203a7d4")
 //                DownloadUtils.download(this@SubsonicApiTestActivity, response)
-//                val response = repository.getAvatar("直播")
+//                val response = source.getAvatar("直播")
 //                DownloadUtils.download(this@SubsonicApiTestActivity, response, "avatar.png")
-//                val response = repository.getCoverArt(artistId)
+//                val response = source.getCoverArt(artistId)
 //                DownloadUtils.download(this@SubsonicApiTestActivity, response, "${artistId}.webp")
-//                val response = repository.getLyrics("周杰伦", "烟花易冷")
-//                val response = repository.getLyricsBySongId(songId)
-//                val response = repository.hls(songId)
-//                val response = repository.stream(songId)
+//                val response = source.getLyrics("周杰伦", "烟花易冷")
+//                val response = source.getLyricsBySongId(songId)
+//                val response = source.hls(songId)
+//                val response = source.stream(songId)
 //                DownloadUtils.download(this@SubsonicApiTestActivity, response)
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="Media Annotation">
-//                val repository = MediaAnnotationRepository(baseUrl, authInfo)
-//                val response = repository.scrobble(songId, submission = false)
-//                val response = repository.setRating(songId, 5)
-//                val response = repository.star(listOf(songId))
-//                val response = repository.unstar(listOf(songId))
+//                val source = MediaAnnotationDataSource(baseUrl, authInfo)
+//                val response = source.scrobble(songId, submission = false)
+//                val response = source.setRating(songId, 5)
+//                val response = source.star(listOf(songId))
+//                val response = source.unstar(listOf(songId))
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="Sharing">
-//                val repository = SharingRepository(baseUrl, authInfo)
+//                val source = SharingDataSource(baseUrl, authInfo)
 //                @OptIn(UnverifiedApi::class)
-//                val response = repository.createShare(listOf(songId))
+//                val response = source.createShare(listOf(songId))
 //                @OptIn(UnverifiedApi::class)
-//                val response = repository.getShares()
+//                val response = source.getShares()
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="Bookmarks">
-//                val repository = BookmarksRepository(baseUrl, authInfo)
-//                val response = repository.createBookmark("100", 2000L)
-//                val response = repository.deleteBookmark("100")
-//                val response = repository.getBookmarks()
-//                val response = repository.getPlayQueueByIndex()
-//                val response = repository.savePlayQueue(songId)
-//                val response = repository.savePlayQueueByIndex(songId)
+//                val source = BookmarksDataSource(baseUrl, authInfo)
+//                val response = source.createBookmark("100", 2000L)
+//                val response = source.deleteBookmark("100")
+//                val response = source.getBookmarks()
+//                val response = source.getPlayQueueByIndex()
+//                val response = source.savePlayQueue(songId)
+//                val response = source.savePlayQueueByIndex(songId)
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="Podcast">
-//                val repository = PodcastRepository(baseUrl, authInfo)
-//                val response = repository.getNewestPodcasts()
+//                val source = PodcastDataSource(baseUrl, authInfo)
+//                val response = source.getNewestPodcasts()
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="jukebox">
-//                val repository = JukeboxRepository(baseUrl, authInfo)
-//                val response = repository.jukeboxControl("status")
+//                val source = JukeboxDataSource(baseUrl, authInfo)
+//                val response = source.jukeboxControl("status")
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="jukebox">
-//                val repository = ChatRepository(baseUrl, authInfo)
-//                val response = repository.getChatMessages()
+//                val source = ChatDataSource(baseUrl, authInfo)
+//                val response = source.getChatMessages()
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="Transcoding">
-//                val repository = TranscodingRepository(baseUrl, authInfo)
-//                val response = repository.getTranscodeDecision(songId, "song")
-//                val response = repository.getTranscodeStream(songId, "song")
+//                val source = TranscodingDataSource(baseUrl, authInfo)
+//                val response = source.getTranscodeDecision(songId, "song")
+//                val response = source.getTranscodeStream(songId, "song")
                 // </editor-fold>
 
 //                Log.d("===cjw", "onCreate: $response")
