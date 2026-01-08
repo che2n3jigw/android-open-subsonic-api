@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 che2n3jigw.
+ * Copyright (c) 2026 che2n3jigw.
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
 // 创建时间： 12/31/25
-package com.che2n3jigw.android.libs.opensubsonicapi.repository
+package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 
 import android.util.Log
 import com.che2n3jigw.android.libs.net.bean.RequestResult
@@ -34,11 +34,11 @@ import com.che2n3jigw.android.libs.opensubsonicapi.service.MediaRetrievalService
 import okhttp3.ResponseBody
 import retrofit2.Response
 
-class MediaRetrievalRepository(
+class MediaRetrievalDataSource(
     baseUrl: String,
     authInfo: AutoInfo,
     enableLogging: Boolean = true
-) : BaseRepository(baseUrl, authInfo, enableLogging) {
+) : BaseDataSource(baseUrl, authInfo, enableLogging) {
 
     companion object {
         private const val TAG = "MediaRetrievalRepository"

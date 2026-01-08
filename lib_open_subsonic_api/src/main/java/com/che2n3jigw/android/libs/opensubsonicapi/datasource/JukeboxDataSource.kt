@@ -20,7 +20,7 @@
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
 // 创建时间： 1/3/26
-package com.che2n3jigw.android.libs.opensubsonicapi.repository
+package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
@@ -29,11 +29,11 @@ import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.jukebox.JukeboxControlSuccessResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.service.JukeboxService
 
-class JukeboxRepository(
+class JukeboxDataSource(
     baseUrl: String,
     authInfo: AutoInfo,
     enableLogging: Boolean = true
-) : BaseRepository(baseUrl, authInfo, enableLogging) {
+) : BaseDataSource(baseUrl, authInfo, enableLogging) {
 
     private val service: JukeboxService = service()
 

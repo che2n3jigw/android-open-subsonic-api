@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 che2n3jigw.
+ * Copyright (c) 2026 che2n3jigw.
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
  *
  */
 
-package com.che2n3jigw.android.libs.opensubsonicapi.repository
+package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
@@ -30,11 +30,11 @@ import com.che2n3jigw.android.libs.opensubsonicapi.service.SystemService
 /**
  * Subsonic System API 远程库
  */
-class SystemRepository(
+class SystemDataSource(
     baseUrl: String,
     authInfo: AutoInfo,
     enableLogging: Boolean = true
-) : BaseRepository(baseUrl, authInfo, enableLogging) {
+) : BaseDataSource(baseUrl, authInfo, enableLogging) {
 
     private val service: SystemService = service()
 

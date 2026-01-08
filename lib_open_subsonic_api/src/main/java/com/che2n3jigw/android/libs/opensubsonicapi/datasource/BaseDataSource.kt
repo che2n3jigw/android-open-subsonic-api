@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 che2n3jigw.
+ * Copyright (c) 2026 che2n3jigw.
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
 // 创建时间： 12/20/25
-package com.che2n3jigw.android.libs.opensubsonicapi.repository
+package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 
 import com.che2n3jigw.android.libs.net.RequestClient
 import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
@@ -29,7 +29,7 @@ import com.che2n3jigw.android.libs.opensubsonicapi.interceptor.AuthenticationInt
 /**
  * Subsonic System API 远程库基类
  */
-open class BaseRepository(
+open class BaseDataSource(
     protected val baseUrl: String,
     autoInfo: AutoInfo,
     protected val enableLogging: Boolean = true

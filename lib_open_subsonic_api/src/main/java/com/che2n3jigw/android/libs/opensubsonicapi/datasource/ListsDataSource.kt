@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 che2n3jigw.
+ * Copyright (c) 2026 che2n3jigw.
  *
  * Licensed under the MIT License (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
 // 邮箱: che2n3jigw@163.com
 // 博客: che2n3jigw.github.io
 // 创建时间： 12/31/25
-package com.che2n3jigw.android.libs.opensubsonicapi.repository
+package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
@@ -32,11 +32,11 @@ import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.Starred
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.Starred2
 import com.che2n3jigw.android.libs.opensubsonicapi.service.ListsService
 
-class ListsRepository(
+class ListsDataSource(
     baseUrl: String,
     authInfo: AutoInfo,
     enableLogging: Boolean = true
-) : BaseRepository(baseUrl, authInfo, enableLogging) {
+) : BaseDataSource(baseUrl, authInfo, enableLogging) {
 
     private val service: ListsService = service()
 
