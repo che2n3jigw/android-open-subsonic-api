@@ -26,12 +26,12 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.bean.AuthInfo
 import kotlinx.coroutines.launch
 
 class SubsonicApiTestActivity : AppCompatActivity() {
 
-    private val authInfo = AutoInfo("直播", "123456")
+    private val authInfo = AuthInfo("直播", "123456")
     private val baseUrl = "http://192.168.50.245:4533"
     private val songId = "5e35d304abfd8c2dc66c0000e4dc814b"
     private val albumId = "ada350bb42c91b863c0beef6e203a7d4"
