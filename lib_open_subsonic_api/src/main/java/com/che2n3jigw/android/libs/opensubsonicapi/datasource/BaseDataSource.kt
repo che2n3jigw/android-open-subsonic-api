@@ -23,7 +23,7 @@
 package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 
 import com.che2n3jigw.android.libs.net.RequestClient
-import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.bean.AuthInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.interceptor.AuthenticationInterceptor
 
 /**
@@ -31,7 +31,7 @@ import com.che2n3jigw.android.libs.opensubsonicapi.interceptor.AuthenticationInt
  */
 open class BaseDataSource(
     protected val baseUrl: String,
-    autoInfo: AutoInfo,
+    authInfo: AuthInfo,
     protected val enableLogging: Boolean = true
 ) {
 
@@ -39,7 +39,7 @@ open class BaseDataSource(
         const val STATUS_OK = "ok"
     }
 
-    protected val authInterceptor = AuthenticationInterceptor(autoInfo)
+    protected val authInterceptor = AuthenticationInterceptor(authInfo)
 
     protected inline fun <reified T> service(): T =
         RequestClient.createService(

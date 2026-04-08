@@ -18,7 +18,7 @@
 
 package com.che2n3jigw.android.libs.opensubsonicapi.interceptor
 
-import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.bean.AuthInfo
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -26,7 +26,7 @@ import okhttp3.Response
  * 认证拦截器
  */
 class AuthenticationInterceptor(
-    private val auth: AutoInfo
+    private val auth: AuthInfo
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {

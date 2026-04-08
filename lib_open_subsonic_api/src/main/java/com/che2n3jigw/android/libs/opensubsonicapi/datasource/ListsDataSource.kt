@@ -25,7 +25,7 @@ package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.opensubsonicapi.bean.AlbumListType
-import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.bean.AuthInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.common.Child
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.NowPlayingEntry
 import com.che2n3jigw.android.libs.opensubsonicapi.response.lists.Starred
@@ -34,7 +34,7 @@ import com.che2n3jigw.android.libs.opensubsonicapi.service.ListsService
 
 class ListsDataSource(
     baseUrl: String,
-    authInfo: AutoInfo,
+    authInfo: AuthInfo,
     enableLogging: Boolean = true
 ) : BaseDataSource(baseUrl, authInfo, enableLogging) {
 

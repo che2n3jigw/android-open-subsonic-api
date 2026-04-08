@@ -25,7 +25,7 @@ package com.che2n3jigw.android.libs.opensubsonicapi.bean
 /**
  * 认证信息
  */
-data class AutoInfo(
+data class AuthInfo(
     val username: String,
     val password: String,
     val version: String = "1.16.1",

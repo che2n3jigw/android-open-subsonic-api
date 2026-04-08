@@ -18,7 +18,7 @@
 
 package com.che2n3jigw.android.libs.opensubsonicapi.download
 
-import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.bean.AuthInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.interceptor.AuthenticationInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Subsonic资源下载客户端
  */
-class DownloadClient(private val baseUrl: String, auth: AutoInfo) {
+class DownloadClient(private val baseUrl: String, auth: AuthInfo) {
 
     /**
      * 日志拦截器

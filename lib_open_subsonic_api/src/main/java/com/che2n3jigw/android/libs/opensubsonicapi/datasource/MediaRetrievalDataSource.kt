@@ -26,7 +26,7 @@ import android.util.Log
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.opensubsonicapi.UnverifiedApi
-import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.bean.AuthInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.download.DownloadClient
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.Lyrics
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.StructuredLyric
@@ -36,7 +36,7 @@ import retrofit2.Response
 
 class MediaRetrievalDataSource(
     baseUrl: String,
-    authInfo: AutoInfo,
+    authInfo: AuthInfo,
     enableLogging: Boolean = true
 ) : BaseDataSource(baseUrl, authInfo, enableLogging) {
 

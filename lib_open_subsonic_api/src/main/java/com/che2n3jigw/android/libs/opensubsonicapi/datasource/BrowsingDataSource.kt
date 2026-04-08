@@ -25,7 +25,7 @@ package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.opensubsonicapi.UnverifiedApi
-import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.bean.AuthInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.AlbumInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.browsing.ArtistInfo2
@@ -44,7 +44,7 @@ import com.che2n3jigw.android.libs.opensubsonicapi.service.BrowsingService
  */
 class BrowsingDataSource(
     baseUrl: String,
-    authInfo: AutoInfo,
+    authInfo: AuthInfo,
     enableLogging: Boolean = true
 ) : BaseDataSource(baseUrl, authInfo, enableLogging) {
 

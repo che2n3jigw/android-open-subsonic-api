@@ -25,7 +25,7 @@ package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
 import com.che2n3jigw.android.libs.opensubsonicapi.UnverifiedApi
-import com.che2n3jigw.android.libs.opensubsonicapi.bean.AutoInfo
+import com.che2n3jigw.android.libs.opensubsonicapi.bean.AuthInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.response.transcoding.ClientInfo
 import com.che2n3jigw.android.libs.opensubsonicapi.service.TranscodingService
 import okhttp3.ResponseBody
@@ -33,7 +33,7 @@ import retrofit2.Response
 
 class TranscodingDataSource(
     baseUrl: String,
-    authInfo: AutoInfo,
+    authInfo: AuthInfo,
     enableLogging: Boolean = true
 ) : BaseDataSource(baseUrl, authInfo, enableLogging) {
 
