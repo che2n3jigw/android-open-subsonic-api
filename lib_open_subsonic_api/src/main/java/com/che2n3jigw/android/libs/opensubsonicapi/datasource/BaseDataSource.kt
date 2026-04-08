@@ -31,7 +31,7 @@ import com.che2n3jigw.android.libs.opensubsonicapi.interceptor.AuthenticationInt
  */
 open class BaseDataSource(
     protected val baseUrl: String,
-    authInfo: AuthInfo,
+    protected val authInfo: AuthInfo,
     protected val enableLogging: Boolean = true
 ) {
 
@@ -47,4 +47,8 @@ open class BaseDataSource(
             enableLogging = enableLogging,
             interceptors = listOf(authInterceptor)
         )
+
+    fun close() {
+        RequestClient.close(baseUrl)
+    }
 }
