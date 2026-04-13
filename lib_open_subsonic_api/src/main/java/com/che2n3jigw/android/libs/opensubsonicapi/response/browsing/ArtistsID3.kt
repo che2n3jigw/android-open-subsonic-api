@@ -22,11 +22,11 @@
 // 创建时间： 12/31/25
 package com.che2n3jigw.android.libs.opensubsonicapi.response.browsing
 
-import com.che2n3jigw.android.libs.opensubsonicapi.response.common.ArtistID3
+import com.che2n3jigw.android.libs.opensubsonicapi.response.common.IndexID3
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ArtistsID3(
     val ignoredArticles: String? = null,
-    val index: List<ArtistID3>? = null
+    val index: List<IndexID3>? = null
 )
