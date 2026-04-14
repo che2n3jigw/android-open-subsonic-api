@@ -31,8 +31,8 @@ import kotlinx.coroutines.launch
 
 class SubsonicApiTestActivity : AppCompatActivity() {
 
-    private val authInfo = AuthInfo("直播", "123456")
-    private val baseUrl = "http://192.168.50.245:4533"
+    private val authInfo = AuthInfo("guest", "123456")
+    private val baseUrl = "http://192.168.50.247:4533"
     private val songId = "5e35d304abfd8c2dc66c0000e4dc814b"
     private val albumId = "ada350bb42c91b863c0beef6e203a7d4"
     private val artistId = "7a8941058aaf4df5147042ce104568da"
@@ -132,7 +132,7 @@ class SubsonicApiTestActivity : AppCompatActivity() {
 //                DownloadUtils.download(this@SubsonicApiTestActivity, response)
 //                val response = source.getAvatar("直播")
 //                DownloadUtils.download(this@SubsonicApiTestActivity, response, "avatar.png")
-//                val response = source.getCoverArt(artistId)
+//                val response = source.getCoverArtUrl(albumId)
 //                DownloadUtils.download(this@SubsonicApiTestActivity, response, "${artistId}.webp")
 //                val response = source.getLyrics("周杰伦", "烟花易冷")
 //                val response = source.getLyricsBySongId(songId)
