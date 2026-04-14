@@ -82,11 +82,12 @@ class MediaRetrievalDataSource(
     /**
      * 获取封面
      * @param id The coverArt ID. Returned by most entities likes Child or AlbumID3
+     * @return 返回封面url
      */
-    suspend fun getCoverArt(id: String, size: Long? = null): Response<ResponseBody>? {
+    suspend fun getCoverArt(id: String, size: Long? = null): String {
         return safeApiCall("getCoverArt") {
             downloadService.getCoverArt(id, size)
-        }
+        }?.raw()?.request?.url?.toString() ?: ""
     }
 
     /**
