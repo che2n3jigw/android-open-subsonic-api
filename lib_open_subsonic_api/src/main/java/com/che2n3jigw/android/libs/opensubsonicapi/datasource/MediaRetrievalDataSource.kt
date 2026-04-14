@@ -31,6 +31,7 @@ import com.che2n3jigw.android.libs.opensubsonicapi.download.DownloadClient
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.Lyrics
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.StructuredLyric
 import com.che2n3jigw.android.libs.opensubsonicapi.service.MediaRetrievalService
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.ResponseBody
 import retrofit2.Response
 
@@ -80,14 +81,28 @@ class MediaRetrievalDataSource(
     }
 
     /**
-     * 获取封面
-     * @param id The coverArt ID. Returned by most entities likes Child or AlbumID3
-     * @return 返回封面url
+     * 获取封面 URL (不发起网络请求)
+     * 直接返回带认证参数的字符串，可直接交给 Coil/Glide 使用
+     *
+     * @param id 封面 ID
+     * @param size 图片尺寸 (可选)
      */
-    suspend fun getCoverArt(id: String, size: Long? = null): String {
-        return safeApiCall("getCoverArt") {
-            downloadService.getCoverArt(id, size)
-        }?.raw()?.request?.url?.toString() ?: ""
+    fun getCoverArtUrl(id: String, size: Long? = null): String {
+        val urlBuilder = "$baseUrl/rest/getCoverArt".toHttpUrlOrNull()?.newBuilder() ?: return ""
+        return urlBuilder
+            .addQueryParameter("id", id)
+            .addQueryParameter("u", authInfo.username)
+            .addQueryParameter("p", authInfo.password)
+            .addQueryParameter("v", authInfo.version)
+            .addQueryParameter("c", authInfo.client)
+            .addQueryParameter("f", authInfo.format)
+            .apply {
+                if (size != null) {
+                    addQueryParameter("size", size.toString())
+                }
+            }
+            .build()
+            .toString()
     }
 
     /**
