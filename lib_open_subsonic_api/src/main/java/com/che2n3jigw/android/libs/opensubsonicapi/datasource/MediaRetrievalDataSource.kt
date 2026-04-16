@@ -22,18 +22,14 @@
 // 创建时间： 12/31/25
 package com.che2n3jigw.android.libs.opensubsonicapi.datasource
 
-import android.util.Log
 import com.che2n3jigw.android.libs.net.bean.RequestResult
 import com.che2n3jigw.android.libs.net.utils.RequestUtils
-import com.che2n3jigw.android.libs.opensubsonicapi.UnverifiedApi
 import com.che2n3jigw.android.libs.opensubsonicapi.bean.AuthInfo
-import com.che2n3jigw.android.libs.opensubsonicapi.download.DownloadClient
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.Lyrics
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.StructuredLyric
 import com.che2n3jigw.android.libs.opensubsonicapi.service.MediaRetrievalService
+import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
-import okhttp3.ResponseBody
-import retrofit2.Response
 
 class MediaRetrievalDataSource(
     baseUrl: String,
@@ -41,43 +37,29 @@ class MediaRetrievalDataSource(
     enableLogging: Boolean = true
 ) : BaseDataSource(baseUrl, authInfo, enableLogging) {
 
-    companion object {
-        private const val TAG = "MediaRetrievalRepository"
-    }
-
     private val service: MediaRetrievalService = service()
-    private val downloadService =
-        DownloadClient(baseUrl, authInfo).createService<MediaRetrievalService>()
 
     /**
-     * 下载指定的媒体文件。类似于流式传输，
-     * 但此方法返回的是原始媒体数据，不进行转码或降采样。
+     * 获取下载地址
      * @param id 媒体文件的ID,通过getMusicDirectory获取
      */
-    suspend fun download(id: String): Response<ResponseBody>? {
-        return safeApiCall("download") {
-            downloadService.download(id)
-        }
+    fun getDownloadUrl(id: String): String {
+        val urlBuilder = "$baseUrl/rest/download".toHttpUrlOrNull()?.newBuilder() ?: return ""
+        return urlBuilder.apply {
+            addBaseQueryParameters(this)
+            addQueryParameter("id", id)
+        }.build().toString()
     }
 
     /**
-     * 获取头像
+     * 获取头像地址
      */
-    suspend fun getAvatar(username: String): Response<ResponseBody>? {
-        return safeApiCall("getAvatar") {
-            downloadService.getAvatar(username)
-        }
-    }
-
-    /**
-     * 返回视频字幕
-     * @param id  视频id
-     */
-    @UnverifiedApi
-    suspend fun getCaptions(id: String, format: String? = null): Response<ResponseBody>? {
-        return safeApiCall("getCaptions") {
-            downloadService.getCaptions(id, format)
-        }
+    fun getAvatarUrl(username: String): String {
+        val urlBuilder = "$baseUrl/rest/getAvatar".toHttpUrlOrNull()?.newBuilder() ?: return ""
+        return urlBuilder.apply {
+            addBaseQueryParameters(this)
+            addQueryParameter("username", username)
+        }.build().toString()
     }
 
     /**
@@ -89,20 +71,11 @@ class MediaRetrievalDataSource(
      */
     fun getCoverArtUrl(id: String, size: Long? = null): String {
         val urlBuilder = "$baseUrl/rest/getCoverArt".toHttpUrlOrNull()?.newBuilder() ?: return ""
-        return urlBuilder
-            .addQueryParameter("id", id)
-            .addQueryParameter("u", authInfo.username)
-            .addQueryParameter("p", authInfo.password)
-            .addQueryParameter("v", authInfo.version)
-            .addQueryParameter("c", authInfo.client)
-            .addQueryParameter("f", authInfo.format)
-            .apply {
-                if (size != null) {
-                    addQueryParameter("size", size.toString())
-                }
-            }
-            .build()
-            .toString()
+        return urlBuilder.apply {
+            addBaseQueryParameters(this)
+            addQueryParameter("id", id)
+            size?.let { addQueryParameter("size", it.toString()) }
+        }.build().toString()
     }
 
     /**
@@ -134,21 +107,20 @@ class MediaRetrievalDataSource(
      * Downloads a given media file(HLS)
      * @param id A string which uniquely identifies the media file to stream.
      */
-    suspend fun hls(
-        id: String,
-        bitRate: Long? = null,
-        audioTrack: String? = null
-    ): Response<ResponseBody>? {
-        return safeApiCall("hls") {
-            downloadService.hls(id, bitRate, audioTrack)
-        }
+    fun hlsUrl(id: String, bitRate: Long? = null, audioTrack: String? = null): String {
+        val urlBuilder = "$baseUrl/rest/hls.m3u8".toHttpUrlOrNull()?.newBuilder() ?: return ""
+        return urlBuilder.apply {
+            addBaseQueryParameters(this)
+            addQueryParameter("id", id)
+            bitRate?.let { addQueryParameter("bitRate", it.toString()) }
+            audioTrack?.let { addQueryParameter("audioTrack", it) }
+        }.build().toString()
     }
 
     /**
-     * Downloads a given media file
-     * @param id A string which uniquely identifies the file to stream. Obtained by calls to getMusicDirectory.
+     * 获取媒体文件流地址
      */
-    suspend fun stream(
+    fun getStreamUrl(
         id: String,
         maxBitRate: Long? = null,
         format: String? = null,
@@ -156,31 +128,27 @@ class MediaRetrievalDataSource(
         size: String? = null,
         estimateContentLength: Boolean? = null,
         converted: Boolean? = null
-    ): Response<ResponseBody>? {
-        return safeApiCall("stream") {
-            downloadService.stream(
-                id,
-                maxBitRate,
-                format,
-                timeOffset,
-                size,
-                estimateContentLength,
-                converted
-            )
+    ): String {
+        val urlBuilder = "$baseUrl/rest/stream".toHttpUrlOrNull()?.newBuilder() ?: return ""
+        urlBuilder.apply {
+            addBaseQueryParameters(this)
+            addQueryParameter("id", id)
+            maxBitRate?.let { addQueryParameter("maxBitRate", it.toString()) }
+            format?.let { addQueryParameter("format", it) }
+            timeOffset?.let { addQueryParameter("timeOffset", it.toString()) }
+            size?.let { addQueryParameter("size", it) }
+            estimateContentLength?.let { addQueryParameter("estimateContentLength", it.toString()) }
+            converted?.let { addQueryParameter("converted", it.toString()) }
         }
+        return urlBuilder.build().toString()
     }
 
-    private suspend fun <T> safeApiCall(
-        tag: String,
-        call: suspend () -> Response<T>
-    ): Response<T>? {
-        return try {
-            call()
-        } catch (e: Exception) {
-            Log.e(TAG, "$tag: ", e)
-            null
-        }
+    private fun addBaseQueryParameters(urlBuilder: HttpUrl.Builder) {
+        urlBuilder
+            .addQueryParameter("u", authInfo.username)
+            .addQueryParameter("p", authInfo.password)
+            .addQueryParameter("v", authInfo.version)
+            .addQueryParameter("c", authInfo.client)
+            .addQueryParameter("f", authInfo.format)
     }
-
 }
-

@@ -25,51 +25,48 @@ package com.che2n3jigw.android.libs.opensubsonicapi.service
 import com.che2n3jigw.android.libs.opensubsonicapi.response.BaseResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.GetLyricsBySongIdResponse
 import com.che2n3jigw.android.libs.opensubsonicapi.response.retrieval.GetLyricsResponse
-import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-import retrofit2.http.Streaming
 
 /**
  * open subsonic media retrieval api
  */
 interface MediaRetrievalService {
 
-    /**
-     * Downloads a given media file. Similar to stream,
-     * but this method returns the original media data without transcoding or downsampling.
-     */
-    @GET("/rest/download")
-    @Streaming
-    suspend fun download(@Query("id") id: String): Response<ResponseBody>
-
-    /**
-     * Returns the avatar (personal image) for a user.
-     */
-    @GET("/rest/getAvatar")
-    @Streaming
-    suspend fun getAvatar(@Query("username") username: String): Response<ResponseBody>
-
-    /**
-     * Returns captions (subtitles) for a video.
-     * Use getVideoInfo to get a list of available captions.
-     */
-    @GET("/rest/getCaptions")
-    suspend fun getCaptions(
-        @Query("id") id: String,
-        @Query("format") format: String? = null
-    ): Response<ResponseBody>
-
-    /**
-     * Returns a cover art image.
-     */
-    @GET("/rest/getCoverArt")
-    @Streaming
-    suspend fun getCoverArt(
-        @Query("id") id: String,
-        @Query("size") size: Long? = null
-    ): Response<ResponseBody>
+//    /**
+//     * Downloads a given media file. Similar to stream,
+//     * but this method returns the original media data without transcoding or downsampling.
+//     */
+//    @GET("/rest/download")
+//    @Streaming
+//    suspend fun download(@Query("id") id: String): Response<ResponseBody>
+//
+//    /**
+//     * Returns the avatar (personal image) for a user.
+//     */
+//    @GET("/rest/getAvatar")
+//    @Streaming
+//    suspend fun getAvatar(@Query("username") username: String): Response<ResponseBody>
+//
+//    /**
+//     * Returns captions (subtitles) for a video.
+//     * Use getVideoInfo to get a list of available captions.
+//     */
+//    @GET("/rest/getCaptions")
+//    suspend fun getCaptions(
+//        @Query("id") id: String,
+//        @Query("format") format: String? = null
+//    ): Response<ResponseBody>
+//
+//    /**
+//     * Returns a cover art image.
+//     */
+//    @GET("/rest/getCoverArt")
+//    @Streaming
+//    suspend fun getCoverArt(
+//        @Query("id") id: String,
+//        @Query("size") size: Long? = null
+//    ): Response<ResponseBody>
 
     /**
      * Searches for and returns lyrics for a given song.
@@ -89,33 +86,33 @@ interface MediaRetrievalService {
     suspend fun getLyricsBySongId(@Query("id") id: String): BaseResponse<GetLyricsBySongIdResponse>
 
 
-    /**
-     * Creates an HLS (HTTP Live Streaming) playlist used for streaming video or audio.
-     * HLS is a streaming protocol implemented by Apple and works by breaking the overall stream into a sequence of small HTTP-based file downloads.
-     * It’s supported by iOS and newer versions of Android. This method also supports adaptive bitrate streaming, see the bitRate parameter.
-     */
-    @GET("/rest/hls.m3u8")
-    suspend fun hls(
-        @Query("id") id: String,
-        @Query("bitRate") bitRate: Long? = null,
-        @Query("audioTrack") audioTrack: String? = null
-    ): Response<ResponseBody>
-
-    /**
-     * Streams a given media file.
-     *
-     * OpenSubsonic servers must not count access to this endpoint as a play and increase playcount. Clients can use the Scrobble endpoint to indicate that a media is played ensuring proper data in all cases.
-     *
-     * If the server support the Transcode Offet extension, then it must accept the timeOffset parameter for music too.
-     */
-    @GET("/rest/stream")
-    suspend fun stream(
-        @Query("id") id: String,
-        @Query("maxBitRate") maxBitRate: Long? = null,
-        @Query("format") format: String? = null,
-        @Query("timeOffset") timeOffset: Long? = null,
-        @Query("size") size: String? = null,
-        @Query("estimateContentLength") estimateContentLength: Boolean? = null,
-        @Query("converted") converted: Boolean? = null
-    ): Response<ResponseBody>
+//    /**
+//     * Creates an HLS (HTTP Live Streaming) playlist used for streaming video or audio.
+//     * HLS is a streaming protocol implemented by Apple and works by breaking the overall stream into a sequence of small HTTP-based file downloads.
+//     * It’s supported by iOS and newer versions of Android. This method also supports adaptive bitrate streaming, see the bitRate parameter.
+//     */
+//    @GET("/rest/hls.m3u8")
+//    suspend fun hls(
+//        @Query("id") id: String,
+//        @Query("bitRate") bitRate: Long? = null,
+//        @Query("audioTrack") audioTrack: String? = null
+//    ): Response<ResponseBody>
+//
+//    /**
+//     * Streams a given media file.
+//     *
+//     * OpenSubsonic servers must not count access to this endpoint as a play and increase playcount. Clients can use the Scrobble endpoint to indicate that a media is played ensuring proper data in all cases.
+//     *
+//     * If the server support the Transcode Offet extension, then it must accept the timeOffset parameter for music too.
+//     */
+//    @GET("/rest/stream")
+//    suspend fun stream(
+//        @Query("id") id: String,
+//        @Query("maxBitRate") maxBitRate: Long? = null,
+//        @Query("format") format: String? = null,
+//        @Query("timeOffset") timeOffset: Long? = null,
+//        @Query("size") size: String? = null,
+//        @Query("estimateContentLength") estimateContentLength: Boolean? = null,
+//        @Query("converted") converted: Boolean? = null
+//    ): Response<ResponseBody>
 }
