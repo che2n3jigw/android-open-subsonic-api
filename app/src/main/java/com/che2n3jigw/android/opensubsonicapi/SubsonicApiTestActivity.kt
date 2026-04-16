@@ -118,7 +118,7 @@ class SubsonicApiTestActivity : AppCompatActivity() {
                 // <editor-fold defaultState="collapsed" desc="lists">
 //                val source = ListsDataSource(baseUrl, authInfo)
 //                val response = source.getAlbumList(AlbumListType.Random)
-//                val response = source.getAlbumList2(AlbumListType.Random)
+//                val response = source.getAlbumList2(AlbumListType.Random,2)
 //                val response = source.getNowPlaying()
 //                val response = source.getRandomSongs()
 //                val response = source.getSongsByGenre("Pop")
@@ -128,17 +128,13 @@ class SubsonicApiTestActivity : AppCompatActivity() {
 
                 // <editor-fold defaultState="collapsed" desc="Media Retrieval">
 //                val source = MediaRetrievalDataSource(baseUrl, authInfo)
-//                val response = source.download("ada350bb42c91b863c0beef6e203a7d4")
-//                DownloadUtils.download(this@SubsonicApiTestActivity, response)
-//                val response = source.getAvatar("直播")
-//                DownloadUtils.download(this@SubsonicApiTestActivity, response, "avatar.png")
+//                val response = source.getDownloadUrl("ada350bb42c91b863c0beef6e203a7d4")
+//                val response = source.getAvatarUrl("guest")
 //                val response = source.getCoverArtUrl(albumId)
-//                DownloadUtils.download(this@SubsonicApiTestActivity, response, "${artistId}.webp")
 //                val response = source.getLyrics("周杰伦", "烟花易冷")
 //                val response = source.getLyricsBySongId(songId)
-//                val response = source.hls(songId)
-//                val response = source.stream(songId)
-//                DownloadUtils.download(this@SubsonicApiTestActivity, response)
+//                val response = source.hlsUrl(songId)
+//                val response = source.getStreamUrl(songId)
                 // </editor-fold>
 
                 // <editor-fold defaultState="collapsed" desc="Media Annotation">
